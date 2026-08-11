@@ -270,7 +270,9 @@ ol, ul { margin: 0; padding: 0; }
 
 /* --- Prose ------------------------------------------------------------- */
 .prose { font-size: 1.06rem; color: var(--ink-soft); max-width: 62ch; }
-.prose p:first-of-type::first-letter {
+/* Drop cap belongs to Our Story alone — it loses its effect if every section
+   opens with one. */
+#story .prose p:first-of-type::first-letter {
   font-family: var(--display); font-size: 3.2rem; float: left;
   line-height: 0.85; padding: 0.1em 0.12em 0 0; color: var(--olive);
 }
@@ -405,20 +407,16 @@ ol, ul { margin: 0; padding: 0; }
 .faq__body { padding: 0 2.5rem 1.5rem 0; }
 .faq__body p { margin: 0; color: var(--ink-soft); font-size: 0.99rem; max-width: 62ch; }
 
-/* --- Registry ---------------------------------------------------------- */
-.registry { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
-.registry__item {
-  display: flex; flex-direction: column; gap: 0.4rem; align-items: center;
-  padding: 1.75rem 1.25rem; text-align: center; text-decoration: none;
-  border: 1px solid var(--line); border-radius: 4px; color: var(--ink);
-  font-family: var(--display); font-size: 1.25rem;
-  transition: border-color 0.2s ease, background 0.2s ease;
+/* --- Honeymoon fund ---------------------------------------------------- */
+.gift__dream { color: var(--olive); }
+
+.gift {
+  margin: 2.5rem 0 2rem; padding: clamp(1.75rem, 5vw, 2.5rem);
+  text-align: center; border: 1px solid var(--line); border-radius: 4px;
+  background: rgba(185,195,174,0.14);
 }
-.registry__item:hover { border-color: var(--olive); background: rgba(185,195,174,0.12); }
-.registry__item span {
-  font-family: var(--sans); font-size: 0.66rem; letter-spacing: 0.2em;
-  text-transform: uppercase; color: var(--terracotta);
-}
+.gift__actions { display: flex; flex-wrap: wrap; gap: 0.85rem; justify-content: center; }
+.gift__soon { margin: 0; font-size: 0.95rem; color: var(--ink-soft); font-style: italic; }
 
 /* --- Footer ------------------------------------------------------------ */
 .footer {

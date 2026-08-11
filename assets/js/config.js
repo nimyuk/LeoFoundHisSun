@@ -31,6 +31,25 @@ window.WEDDING_CONFIG = {
   // ---- Contact ----------------------------------------------------------
   contactEmail: "kyuminleolee@gmail.com",
 
+  // ---- Honeymoon fund ---------------------------------------------------
+  // Leave `venmo` blank and the section shows a quiet "details coming soon"
+  // note instead of a dead button. Fill it in and a button appears.
+  //
+  // Either form works:
+  //   venmo: "https://venmo.com/u/your-username"   (from Venmo > Me > share)
+  //   venmo: "@your-username"                      (turned into a link for you)
+  //
+  // Venmo profiles are public. Anyone with the link can see your name, photo,
+  // and any payments you have not marked private — worth checking your privacy
+  // settings before this goes on a page you send to sixty people.
+  honeymoon: {
+    venmo: "",
+    // Optional second option, if you would rather give guests a choice.
+    // Same rules: blank means it does not appear at all.
+    otherLabel: "",
+    otherUrl: "",
+  },
+
   // ---- Venue ------------------------------------------------------------
   venue: {
     name: "Sweeney Barn",

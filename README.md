@@ -35,8 +35,13 @@ Search the source for `PLACEHOLDER` and work through the list:
       reasonable shape for the evening, but confirm against your venue contract.
 - [ ] **Room block** — no block is set up yet; the three hotels listed are real
       and nearby, but unnegotiated.
-- [ ] **Registry** — three dead links waiting for real URLs. If you would rather
-      not have a registry, delete the whole `#registry` section and its nav link.
+- [ ] **Honeymoon fund** — set `honeymoon.venmo` in `assets/js/config.js` to
+      your Venmo link or `@handle`. While it is blank the section shows a
+      "coming soon" note instead of a broken button, so it is safe to publish
+      now. There is also an optional second button (`otherLabel`/`otherUrl`)
+      if you want to offer a choice.
+- [ ] **Honeymoon destination** — one line in the `#honeymoon` section currently
+      reads "to be revealed". Naming the place makes the ask land much better.
 - [ ] **RSVP form** — see below.
 - [ ] **Photos** — see `assets/img/README.md`.
 

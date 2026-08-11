@@ -189,6 +189,50 @@
     }
   }
 
+  /* --- Honeymoon fund -------------------------------------------------- */
+  var giftMount = document.getElementById("giftMount");
+
+  if (giftMount) {
+    var gift = cfg.honeymoon || {};
+    var venmo = (gift.venmo || "").trim();
+    var links = [];
+
+    if (venmo) {
+      // Accept either a full URL or a bare @handle.
+      var venmoUrl = /^https?:\/\//i.test(venmo)
+        ? venmo
+        : "https://venmo.com/u/" + venmo.replace(/^@/, "");
+      links.push({ label: "Give via Venmo", url: venmoUrl, primary: true });
+    }
+
+    if ((gift.otherUrl || "").trim() && (gift.otherLabel || "").trim()) {
+      links.push({ label: gift.otherLabel.trim(), url: gift.otherUrl.trim(), primary: false });
+    }
+
+    if (links.length) {
+      var row = document.createElement("div");
+      row.className = "gift__actions";
+
+      links.forEach(function (link) {
+        var a = document.createElement("a");
+        a.className = "btn " + (link.primary ? "btn--solid" : "btn--ghost");
+        a.href = link.url;
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+        a.textContent = link.label;
+        row.appendChild(a);
+      });
+
+      giftMount.appendChild(row);
+    } else {
+      var soon = document.createElement("p");
+      soon.className = "gift__soon";
+      soon.textContent =
+        "We are still setting this up — a link will appear here before the invitations go out.";
+      giftMount.appendChild(soon);
+    }
+  }
+
   /* --- Config-driven text --------------------------------------------- */
   var deadlineEl = document.getElementById("rsvpDeadline");
   if (deadlineEl && cfg.rsvpDeadlineLabel) {
