@@ -56,15 +56,20 @@ in a Google Sheet you own — no third-party service, no account for guests.
 
 ## The RSVP dashboard
 
-`admin.html` is a private view of your responses. It is not linked from
-anywhere on the public site and carries a `noindex` tag, so guests will not
-find it. Bookmark it:
+`admin.html` is a private view of your responses, reached from the **Admin**
+button in the public site's footer, or directly at:
 
 ```
 https://nimyuk.github.io/LeoFoundHisSun/admin.html
 ```
 
 The password is `Leo1234`.
+
+It carries a `noindex` tag so it stays out of search results, but the footer
+button means guests can find it. That is fine — the password screen is what
+holds them off, and the dashboard has nothing in it to take (see below). To
+make it discreet again, delete the `.footer__admin` paragraph from
+`index.html`; the page keeps working at its URL.
 
 ### Read this before you rely on it
 
