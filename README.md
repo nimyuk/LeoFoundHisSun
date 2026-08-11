@@ -76,11 +76,29 @@ link.
 Give it one to two minutes. The URL appears at the top of that same page:
 
 ```
-https://nimyuk.github.io/Wedding-Website/
+https://nimyuk.github.io/LeoFoundHisSun/
 ```
 
 Every push to that branch redeploys automatically — edit a file, commit, and
 the live site updates within a minute.
+
+### The URL comes from the repository name
+
+A GitHub Pages project site is always served at
+`<username>.github.io/<repository-name>/`. There is no separate setting for the
+path — to change the URL you rename the repository, under
+**Settings → General → Repository name**.
+
+Renaming is safe: GitHub redirects the old repository URL, the old Pages URL,
+and existing `git remote` URLs to the new name, so nothing breaks and no local
+clone needs repairing. Two things do *not* follow automatically, and both are
+already handled in this repository:
+
+- the `og:image` URL in `index.html`, which must be absolute and therefore
+  contains the repository name
+- this README
+
+If you rename the repository again, update those two together.
 
 ### Keeping it out of Google
 
