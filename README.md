@@ -56,19 +56,59 @@ in a Google Sheet you own — no third-party service, no account for guests.
 
 ## Publishing it
 
-GitHub Pages, free, no configuration:
+The plan is GitHub Pages, which is free and needs no build configuration. Two
+settings changes, both in this repository's **Settings** tab:
 
-1. **Settings → Pages** in this repository.
-2. Source: **Deploy from a branch**, branch `main`, folder `/ (root)`.
-3. It goes live at `https://nimyuk.github.io/Wedding-Website/` within a minute
-   or two.
+**1. Make the repository public.** Pages will not serve a private repository
+unless you pay for GitHub Pro. Go to **Settings → General → Danger Zone →
+Change repository visibility → Make public**. GitHub will ask you to type the
+repository name to confirm. This publishes the *source code*, which for a
+wedding site is the same information the site itself shows anyone with the
+link.
 
-For a nicer address, buy a domain, point a `CNAME` record at
-`nimyuk.github.io`, and enter it under **Custom domain** on that same settings
-page. Anything short and memorable works — guests will be typing it off a card.
+**2. Turn on Pages.** Go to **Settings → Pages**:
+
+- Source: **Deploy from a branch**
+- Branch: `claude/wedding-website-april-2027-e3ppvr` (already the default
+  branch, so it should be preselected), folder **`/ (root)`**
+- Click **Save**
+
+Give it one to two minutes. The URL appears at the top of that same page:
+
+```
+https://nimyuk.github.io/Wedding-Website/
+```
+
+Every push to that branch redeploys automatically — edit a file, commit, and
+the live site updates within a minute.
+
+### Keeping it out of Google
+
+`index.html` carries a `<meta name="robots" content="noindex, nofollow">` tag,
+which is what actually keeps the site out of search results. There is
+deliberately **no `robots.txt`** in this repository: on a GitHub Pages project
+site the only `robots.txt` that counts lives at `nimyuk.github.io/robots.txt`,
+which this repository does not control — and worse, a `Disallow` rule would
+stop crawlers from ever reading the `noindex` tag that does the real work. The
+meta tag alone is the correct tool here.
+
+The site is unlisted, not secret. Anyone with the link can open it, so treat
+the URL the way you would treat the invitation itself.
+
+### Adding a custom domain later
+
+Buy a domain, then on **Settings → Pages** enter it under **Custom domain**.
+At your registrar, add a `CNAME` record pointing `www` to `nimyuk.github.io`
+(or four `A` records to GitHub's IPs for the bare domain — GitHub shows the
+current list when you save). Tick **Enforce HTTPS** once the certificate
+provisions, which takes up to an hour. Nothing in the site needs to change,
+except the `og:image` URL in `index.html`.
+
+### Other hosts
 
 Netlify, Vercel, and Cloudflare Pages all deploy this repository as-is with no
-build command, if you would rather use one of those.
+build command and will serve it while the repository stays private, if you
+would rather not make it public.
 
 ## Notes on the build
 
