@@ -54,6 +54,69 @@ Until that field is filled in the RSVP section shows an "RSVP opens soon" card
 rather than a broken frame, so the site is safe to publish early. Responses land
 in a Google Sheet you own — no third-party service, no account for guests.
 
+## The RSVP dashboard
+
+`admin.html` is a private view of your responses. It is not linked from
+anywhere on the public site and carries a `noindex` tag, so guests will not
+find it. Bookmark it:
+
+```
+https://nimyuk.github.io/LeoFoundHisSun/admin.html
+```
+
+The password is `Leo1234`.
+
+### Read this before you rely on it
+
+**The password is a curtain, not a lock.** This is a static site with no
+server, so the password check runs in the visitor's browser — anyone who opens
+View Source can read `assets/js/admin.js` and work out how to get past it. That
+is a property of static hosting, not something a different implementation would
+fix. A real login needs a server.
+
+The page is built so that this does not matter: **it stores no guest data.**
+Nothing about your RSVPs is committed to this repository or served from this
+website. You load the CSV yourself, it is parsed in your browser, and it lives
+in memory for that session. Someone who defeats the password finds an empty
+dashboard and a file-upload box.
+
+Your actual RSVP records sit in Google Sheets behind your Google account, which
+is genuine authentication. That is where the real protection lives, and why the
+weak gate here is an acceptable trade rather than a hole.
+
+The password is stored as a salted SHA-256 digest rather than plain text, so
+the literal string is not sitting readable in a public repository. To change
+it, run this and paste the result into `PASSWORD_HASH` at the top of
+`assets/js/admin.js`:
+
+```sh
+node -e "console.log(require('crypto').createHash('sha256').update('leo-yoonsun-2027::' + 'YOUR_NEW_PASSWORD').digest('hex'))"
+```
+
+### Using it
+
+1. Open your Google Form's responses and click **View in Sheets**.
+2. In the sheet: **File → Download → Comma Separated Values (.csv)**.
+3. Drop that file onto the dashboard (or paste the text).
+
+It then shows headcount against your 60-seat plan, meal tallies, dietary needs
+and allergies pulled out as a list for the caterer, song requests, and a
+searchable table of every reply, plus a **Copy emails** button for whatever is
+currently filtered.
+
+Column names are auto-detected from your form's question wording. Detection is
+a guess — dropdowns at the top let you correct any column it gets wrong.
+
+Answers are classified as attending/declined by pattern, handling the phrasings
+Google Forms produces ("Joyfully accepts", "Regretfully declines", "will not be
+attending"). Anything it cannot classify confidently is counted as an **unclear
+reply** and shown as its own stat rather than being guessed at — if that number
+is not zero, look at those rows by hand.
+
+There is a **remember on this device** checkbox. Leaving it off means
+re-loading the CSV each visit; turning it on stores the data in your browser's
+local storage. Leave it off on a shared computer.
+
 ## Publishing it
 
 The plan is GitHub Pages, which is free and needs no build configuration. Two

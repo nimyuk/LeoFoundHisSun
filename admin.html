@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<script>document.documentElement.classList.remove("no-js");</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RSVP Dashboard — Leo &amp; Yoonsun</title>
+
+<!-- This page must never be indexed, and is deliberately not linked from the
+     public site. Bookmark it; guests will not stumble onto it. -->
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="theme-color" content="#4a5844">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%8B%3C/text%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="assets/css/styles.css">
+<link rel="stylesheet" href="assets/css/admin.css">
+</head>
+<body class="admin">
+
+<!-- ===================== LOCK SCREEN ===================== -->
+<div class="lock" id="lock">
+  <form class="lock__card" id="lockForm" autocomplete="off">
+    <p class="lock__mark">L <span class="amp">&amp;</span> Y</p>
+    <h1 class="lock__title">RSVP Dashboard</h1>
+    <p class="lock__sub">This page is for the couple.</p>
+
+    <label class="lock__label" for="pw">Password</label>
+    <input class="lock__input" type="password" id="pw" name="pw"
+           autocomplete="current-password" autofocus required>
+
+    <button class="btn btn--solid lock__btn" type="submit">Unlock</button>
+
+    <p class="lock__error" id="lockError" role="alert" hidden></p>
+
+    <p class="lock__note">
+      Guests never see this page &mdash; it is not linked anywhere on the site.
+    </p>
+  </form>
+</div>
+
+<!-- ===================== DASHBOARD ===================== -->
+<div class="dash" id="dash" hidden>
+
+  <header class="dash__bar">
+    <div class="dash__bar-inner">
+      <div>
+        <p class="dash__eyebrow">Leo &amp; Yoonsun &middot; April 15, 2027</p>
+        <h1 class="dash__title">RSVP Dashboard</h1>
+      </div>
+      <div class="dash__bar-actions">
+        <a class="btn btn--ghost btn--sm" href="index.html">View site</a>
+        <button class="btn btn--ghost btn--sm" id="lockBtn" type="button">Lock</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="dash__body">
+
+    <!-- ---- Data source ---- -->
+    <section class="panel" id="sourcePanel">
+      <div class="panel__head">
+        <h2>Responses</h2>
+        <button class="btn btn--ghost btn--sm" id="changeDataBtn" type="button" hidden>Replace data</button>
+      </div>
+
+      <div class="loader" id="loader">
+        <p class="loader__lede">
+          Your RSVPs live in the Google Sheet attached to your form. Nothing is
+          stored on this website &mdash; paste or drop the sheet's CSV below and
+          it is read <strong>entirely inside your browser</strong>. It is never
+          uploaded anywhere.
+        </p>
+
+        <ol class="loader__steps">
+          <li>Open your form's responses and click <strong>View in Sheets</strong>.</li>
+          <li>In the sheet: <strong>File &rarr; Download &rarr; Comma Separated Values (.csv)</strong>.</li>
+          <li>Drop that file below, or open it in a text editor and paste the contents.</li>
+        </ol>
+
+        <div class="drop" id="drop" tabindex="0" role="button"
+             aria-label="Drop a CSV file here, or click to choose a file">
+          <p class="drop__title">Drop your CSV here</p>
+          <p class="drop__sub">or click to choose a file</p>
+          <input type="file" id="fileInput" accept=".csv,text/csv" hidden>
+        </div>
+
+        <details class="loader__paste">
+          <summary>Paste the CSV text instead</summary>
+          <textarea id="pasteArea" rows="6" placeholder="Paste the contents of the CSV file here..."></textarea>
+          <button class="btn btn--solid btn--sm" id="pasteBtn" type="button">Load pasted data</button>
+        </details>
+
+        <label class="check">
+          <input type="checkbox" id="rememberData">
+          <span>Remember this data on this device, so I don't have to re-load it each visit.
+          Leave off if you are on a shared computer.</span>
+        </label>
+
+        <p class="loader__error" id="loadError" role="alert" hidden></p>
+      </div>
+
+      <div class="mapping" id="mapping" hidden>
+        <p class="mapping__lede">
+          Columns detected automatically. Fix any that are wrong &mdash; your form's
+          wording will not match mine exactly.
+        </p>
+        <div class="mapping__grid" id="mappingGrid"></div>
+      </div>
+    </section>
+
+    <!-- ---- Stats ---- -->
+    <section class="panel" id="statsPanel" hidden>
+      <div class="panel__head"><h2>At a glance</h2></div>
+
+      <div class="stats" id="stats"></div>
+
+      <div class="capacity">
+        <div class="capacity__head">
+          <span id="capacityLabel">0 of 60 seats</span>
+          <span class="capacity__hint">Planned for 55&ndash;60</span>
+        </div>
+        <div class="capacity__track"><div class="capacity__fill" id="capacityFill"></div></div>
+      </div>
+    </section>
+
+    <!-- ---- Breakdowns ---- -->
+    <section class="panel" id="breakdownPanel" hidden>
+      <div class="panel__head"><h2>Breakdowns</h2></div>
+      <div class="breakdowns" id="breakdowns"></div>
+    </section>
+
+    <!-- ---- Guest table ---- -->
+    <section class="panel" id="tablePanel" hidden>
+      <div class="panel__head">
+        <h2>Everyone who replied</h2>
+        <div class="panel__tools">
+          <input class="search" type="search" id="search" placeholder="Search names, notes, anything…">
+          <select class="filter" id="filter" aria-label="Filter by response">
+            <option value="all">All responses</option>
+            <option value="yes">Attending</option>
+            <option value="no">Not attending</option>
+          </select>
+          <button class="btn btn--ghost btn--sm" id="copyEmails" type="button">Copy emails</button>
+        </div>
+      </div>
+      <div class="tablewrap">
+        <table class="table" id="table"></table>
+      </div>
+      <p class="table__empty" id="tableEmpty" hidden>Nothing matches that search.</p>
+    </section>
+
+  </main>
+
+  <footer class="dash__foot">
+    <p>
+      <strong>How private is this?</strong> The password here keeps guests and
+      casual visitors out, and that is all it does &mdash; this is a static site,
+      so anyone determined enough can read the page's code. That is safe because
+      this page stores no guest data: everything you see is read from the file
+      you loaded, in your browser, this session. Your actual RSVP records stay in
+      Google Sheets behind your Google account, which is real security.
+    </p>
+  </footer>
+</div>
+
+<script src="assets/js/admin.js"></script>
+</body>
+</html>
