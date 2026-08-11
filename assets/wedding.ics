@@ -1,0 +1,24 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Leo and Yoonsun//Wedding 2027//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:leo-yoonsun-wedding-20270415@sweeneybarn
+DTSTAMP:20260811T120000Z
+DTSTART:20270415T200000Z
+DTEND:20270416T023000Z
+SUMMARY:Leo & Yoonsun's Wedding
+DESCRIPTION:Guests arrive at 4:00 pm\, ceremony at 4:30 pm\, dinner and dan
+ cing to follow. Cocktail attire. Free parking on site.
+LOCATION:Sweeney Barn\, 9310 Discovery Blvd\, Manassas\, VA 20109
+URL:https://sweeneybarn.com/
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Leo & Yoonsun's wedding is tomorrow
+END:VALARM
+END:VEVENT
+END:VCALENDAR
