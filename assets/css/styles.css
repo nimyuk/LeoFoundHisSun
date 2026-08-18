@@ -268,6 +268,43 @@ ol, ul { margin: 0; padding: 0; }
   100% { transform: translateY(32px); opacity: 0; }
 }
 
+/* --- Sun portraits ----------------------------------------------------- */
+.suns { margin: 0 0 3rem; }
+.suns[hidden] { display: none; }
+
+.suns__row {
+  display: flex; align-items: center; justify-content: center;
+  gap: clamp(1rem, 4vw, 2.5rem); flex-wrap: wrap;
+}
+.sun { text-align: center; }
+.sun__img {
+  width: clamp(130px, 26vw, 200px); aspect-ratio: 1 / 1;
+  border-radius: 50%; object-fit: cover;
+  /* Nudge this if a face sits high or low in its crop. */
+  object-position: center 42%;
+  border: 3px solid var(--cream);
+  box-shadow: 0 0 0 1px var(--line), 0 10px 30px rgba(47, 44, 40, 0.1);
+}
+.sun__name {
+  font-family: var(--display); font-size: 1.15rem; margin: 0.9rem 0 0; color: var(--ink);
+}
+.suns__join {
+  font-family: var(--display); font-style: italic;
+  font-size: clamp(1rem, 2.4vw, 1.35rem); color: var(--terracotta);
+  margin: 0 0 2.25rem; white-space: nowrap;
+}
+.suns__caption {
+  text-align: center; font-size: 0.82rem; color: var(--ink-soft);
+  font-style: italic; margin-top: 1.5rem;
+}
+
+@media (max-width: 420px) {
+  /* Keep both suns on one line even on the narrowest phones. */
+  .suns__row { flex-wrap: nowrap; gap: 0.75rem; }
+  .sun__img { width: min(34vw, 130px); }
+  .suns__join { font-size: 0.9rem; margin-bottom: 2rem; }
+}
+
 /* --- Prose ------------------------------------------------------------- */
 .prose { font-size: 1.06rem; color: var(--ink-soft); max-width: 62ch; }
 /* Drop cap belongs to Our Story alone — it loses its effect if every section

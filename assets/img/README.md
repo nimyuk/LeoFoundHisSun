@@ -6,8 +6,27 @@ photographer. Drop files in here with these exact names to swap them in.
 
 | File | Used for | Recommended size |
 | --- | --- | --- |
+| `leo.jpg` | Left sun portrait in Our Story | 600 × 600, square |
+| `yoonsun.jpg` | Right sun portrait in Our Story | 600 × 600, square |
 | `hero.jpg` | Full-bleed background behind the names | 2400 × 1600, landscape |
 | `share.jpg` | Link preview when the site is texted or posted | 1200 × 630 |
+
+## The sun portraits
+
+`leo.jpg` and `yoonsun.jpg` are the two sun photos, shown as circles side by
+side at the top of Our Story. **Both must be present** — the block stays
+hidden until each one loads, so the page never shows a broken image while you
+are still gathering them.
+
+They are cropped to a circle with `object-fit: cover`, so any aspect ratio
+works, but a roughly square export keeps the most of each picture. If a face
+sits too high or low inside its circle, adjust `object-position` on `.sun__img`
+in `styles.css` — it is set to `center 42%`, which favours the upper half of
+the frame where faces usually sit.
+
+The filenames are case-sensitive on GitHub Pages: `leo.jpg`, not `Leo.JPG`. If
+your phone exported `.HEIC`, convert to JPEG first — browsers will not display
+HEIC.
 
 ## Turning on the hero photo
 

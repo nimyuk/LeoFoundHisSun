@@ -189,6 +189,38 @@
     }
   }
 
+  /* --- Sun portraits ---------------------------------------------------
+     The block stays hidden until both photographs load. If either file is
+     missing the section simply reads as it did before, rather than showing a
+     pair of broken-image icons.
+     --------------------------------------------------------------------- */
+  var suns = document.getElementById("suns");
+
+  if (suns) {
+    var sunImgs = [document.getElementById("sunLeo"), document.getElementById("sunYoonsun")];
+    var loaded = 0;
+    var failed = false;
+
+    var settle = function () {
+      if (!failed && loaded === sunImgs.length) suns.hidden = false;
+    };
+
+    sunImgs.forEach(function (img) {
+      if (!img) { failed = true; return; }
+
+      // An image cached before this script ran is already complete.
+      if (img.complete) {
+        if (img.naturalWidth > 0) { loaded++; } else { failed = true; }
+        return;
+      }
+
+      img.addEventListener("load", function () { loaded++; settle(); });
+      img.addEventListener("error", function () { failed = true; suns.hidden = true; });
+    });
+
+    settle();
+  }
+
   /* --- Honeymoon fund -------------------------------------------------- */
   var giftMount = document.getElementById("giftMount");
 

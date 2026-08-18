@@ -102,6 +102,28 @@
     <p class="eyebrow reveal">How we got here</p>
     <h2 class="section__title reveal">Our Story</h2>
 
+    <!-- The two sun portraits. Add assets/img/leo.jpg and assets/img/yoonsun.jpg
+         and this appears; main.js hides the whole block if either is missing, so
+         the page never shows a broken image. -->
+    <figure class="suns reveal" id="suns" hidden>
+      <div class="suns__row">
+        <div class="sun">
+          <img class="sun__img" id="sunLeo" src="assets/img/leo.jpg" alt="Leo, as a sun" width="600" height="600" decoding="async">
+          <p class="sun__name">Leo</p>
+        </div>
+
+        <p class="suns__join">found his</p>
+
+        <div class="sun">
+          <img class="sun__img" id="sunYoonsun" src="assets/img/yoonsun.jpg" alt="Yoonsun, as a sun" width="600" height="600" decoding="async">
+          <p class="sun__name">Yoonsun</p>
+        </div>
+      </div>
+      <figcaption class="suns__caption">
+        Yes &mdash; that is where the web address comes from.
+      </figcaption>
+    </figure>
+
     <div class="prose reveal">
       <!-- PLACEHOLDER COPY — replace these three paragraphs with your own. -->
       <p>
