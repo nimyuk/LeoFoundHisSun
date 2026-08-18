@@ -277,13 +277,21 @@ ol, ul { margin: 0; padding: 0; }
   gap: clamp(1rem, 4vw, 2.5rem); flex-wrap: wrap;
 }
 .sun { text-align: center; }
-.sun__img {
+
+/* The frame does the clipping, so the photo inside can be scaled to taste
+   without the circle itself distorting. */
+.sun__frame {
   width: clamp(130px, 26vw, 200px); aspect-ratio: 1 / 1;
-  border-radius: 50%; object-fit: cover;
-  /* Nudge this if a face sits high or low in its crop. */
-  object-position: center 42%;
+  border-radius: 50%; overflow: hidden;
   border: 3px solid var(--cream);
   box-shadow: 0 0 0 1px var(--line), 0 10px 30px rgba(47, 44, 40, 0.1);
+}
+.sun__img {
+  display: block; width: 100%; height: 100%; object-fit: cover;
+  /* Nudge this if a face sits high or low in its crop. */
+  object-position: center 42%;
+  transform: scale(var(--zoom, 1));
+  transform-origin: center 45%;
 }
 .sun__name {
   font-family: var(--display); font-size: 1.15rem; margin: 0.9rem 0 0; color: var(--ink);
@@ -301,7 +309,7 @@ ol, ul { margin: 0; padding: 0; }
 @media (max-width: 420px) {
   /* Keep both suns on one line even on the narrowest phones. */
   .suns__row { flex-wrap: nowrap; gap: 0.75rem; }
-  .sun__img { width: min(34vw, 130px); }
+  .sun__frame { width: min(34vw, 130px); }
   .suns__join { font-size: 0.9rem; margin-bottom: 2rem; }
 }
 

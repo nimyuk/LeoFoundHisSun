@@ -107,15 +107,22 @@
          the page never shows a broken image. -->
     <figure class="suns reveal" id="suns" hidden>
       <div class="suns__row">
+        <!-- --zoom scales the photo inside its circle. The two source photos
+             frame their suns at different distances, so Yoonsun's is pushed in
+             to match Leo's. Adjust either value if you swap a photo. -->
         <div class="sun">
-          <img class="sun__img" id="sunLeo" src="assets/img/leo.jpg" alt="Leo, as a sun" width="600" height="600" decoding="async">
+          <div class="sun__frame">
+            <img class="sun__img" id="sunLeo" src="assets/img/leo.jpg" alt="Leo, as a sun" width="600" height="600" decoding="async" style="--zoom: 1;">
+          </div>
           <p class="sun__name">Leo</p>
         </div>
 
         <p class="suns__join">found his</p>
 
         <div class="sun">
-          <img class="sun__img" id="sunYoonsun" src="assets/img/yoonsun.jpg" alt="Yoonsun, as a sun" width="600" height="600" decoding="async">
+          <div class="sun__frame">
+            <img class="sun__img" id="sunYoonsun" src="assets/img/yoonsun.jpg" alt="Yoonsun, as a sun" width="600" height="600" decoding="async" style="--zoom: 1.3;">
+          </div>
           <p class="sun__name">Yoonsun</p>
         </div>
       </div>
