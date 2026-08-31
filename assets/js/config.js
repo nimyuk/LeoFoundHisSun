@@ -16,13 +16,24 @@ window.WEDDING_CONFIG = {
   receptionEnd: "2027-04-15T22:30:00-04:00",
 
   // ---- RSVP -------------------------------------------------------------
-  // Paste the Google Form URL here.
-  //   1. Build the form at https://forms.google.com
-  //   2. Send > link icon (<>) > copy the URL inside src="..."
-  //      It looks like: https://docs.google.com/forms/d/e/FORM_ID/viewform?embedded=true
-  //   3. Paste it below and redeploy. Until then the page shows a friendly
-  //      "RSVP opening soon" card instead of a broken embed.
-  rsvpFormUrl: "<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSePlNg1BRF5POfW7--i5_k4iAJMByk1mj0IlHlOl_PdUA17jw/viewform?embedded=true" width="640" height="853" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>",
+  // The address of your Google Form, and NOTHING else.
+  //
+  // Google's embed tab hands you a whole block of HTML that looks like this:
+  //
+  //   <iframe src="https://docs.google.com/forms/d/e/ABC.../viewform?embedded=true"
+  //           width="640" height="853" frameborder="0">Loading…</iframe>
+  //
+  // Do not paste that. Take only the address between the quotes after src=,
+  // and nothing outside them — no <iframe, no width, no </iframe>. The rest of
+  // that HTML is already built into the page.
+  //
+  //   RIGHT: "https://docs.google.com/forms/d/e/ABC.../viewform?embedded=true"
+  //   WRONG: "<iframe src="https://..." width="640"></iframe>"
+  //
+  // The wrong version also breaks this file outright: its quotes close this
+  // string early, which is a syntax error, and a syntax error here stops the
+  // whole file loading — taking the countdown down with it.
+  rsvpFormUrl: "https://docs.google.com/forms/d/e/1FAIpQLSePlNg1BRF5POfW7--i5_k4iAJMByk1mj0IlHlOl_PdUA17jw/viewform?embedded=true",
 
   // Deadline shown on the RSVP page and in the FAQ.
   rsvpDeadline: "2027-02-15T23:59:00-05:00",
