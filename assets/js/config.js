@@ -22,7 +22,7 @@ window.WEDDING_CONFIG = {
   //      It looks like: https://docs.google.com/forms/d/e/FORM_ID/viewform?embedded=true
   //   3. Paste it below and redeploy. Until then the page shows a friendly
   //      "RSVP opening soon" card instead of a broken embed.
-  rsvpFormUrl: "",
+  rsvpFormUrl: "<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSePlNg1BRF5POfW7--i5_k4iAJMByk1mj0IlHlOl_PdUA17jw/viewform?embedded=true" width="640" height="853" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>",
 
   // Deadline shown on the RSVP page and in the FAQ.
   rsvpDeadline: "2027-02-15T23:59:00-05:00",
