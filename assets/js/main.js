@@ -196,6 +196,41 @@
     }
   }
 
+  /* --- FAQ image answer -------------------------------------------------
+     Tries each candidate filename in turn and shows the first that loads,
+     so the upload's extension does not have to be guessed correctly. The
+     text answer stands in until one succeeds, and stays if none do.
+     --------------------------------------------------------------------- */
+  var meme = document.getElementById("kidsMeme");
+  var memeImg = document.getElementById("kidsMemeImg");
+  var memeFallback = document.getElementById("kidsMemeFallback");
+
+  if (meme && memeImg) {
+    var candidates = [
+      "assets/img/no.gif",
+      "assets/img/no.jpg",
+      "assets/img/no.jpeg",
+      "assets/img/no.png",
+      "assets/img/no.webp"
+    ];
+    var attempt = 0;
+
+    memeImg.addEventListener("load", function () {
+      meme.hidden = false;
+      if (memeFallback) memeFallback.hidden = true;
+    });
+
+    memeImg.addEventListener("error", function () {
+      attempt++;
+      if (attempt < candidates.length) {
+        memeImg.src = candidates[attempt];
+      }
+      // Out of candidates: the figure stays hidden and the text answer stands.
+    });
+
+    memeImg.src = candidates[0];
+  }
+
   /* --- Sun portraits ---------------------------------------------------
      The block stays hidden until both photographs load. If either file is
      missing the section simply reads as it did before, rather than showing a

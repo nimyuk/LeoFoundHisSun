@@ -8,8 +8,18 @@ photographer. Drop files in here with these exact names to swap them in.
 | --- | --- | --- |
 | `leo.jpg` | Left sun portrait in Our Story | 600 × 600, square |
 | `yoonsun.jpg` | Right sun portrait in Our Story | 600 × 600, square |
+| `no.*` | The answer to "Are children invited?" in the FAQ | any, shown at 240px |
 | `hero.jpg` | Full-bleed background behind the names | 2400 × 1600, landscape |
 | `share.jpg` | Link preview when the site is texted or posted | 1200 × 630 |
+
+## The FAQ image answer
+
+`no.gif` — or `.jpg`, `.jpeg`, `.png`, `.webp`. The page tries each of those
+in turn and uses the first it finds, so the extension does not have to match
+anything exactly. Until one exists, the FAQ answer reads "No." as plain text,
+which is also what shows for anyone using a screen reader.
+
+An animated GIF works and will play.
 
 ## The sun portraits
 

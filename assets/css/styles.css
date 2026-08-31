@@ -453,6 +453,15 @@ ol, ul { margin: 0; padding: 0; }
 .faq__item[open] summary::after { transform: rotate(-135deg); margin-top: -2px; }
 .faq__body { padding: 0 2.5rem 1.5rem 0; }
 .faq__body p { margin: 0; color: var(--ink-soft); font-size: 0.99rem; max-width: 62ch; }
+.faq__body p[hidden] { display: none; }
+
+/* An image used as an answer. */
+.meme { margin: 0; }
+.meme[hidden] { display: none; }
+.meme__img {
+  width: min(240px, 60%); border-radius: 6px;
+  border: 1px solid var(--line);
+}
 
 /* --- Honeymoon fund ---------------------------------------------------- */
 .gift__dream { color: var(--olive); }

@@ -27,7 +27,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="assets/css/styles.css?v=6">
+<link rel="stylesheet" href="assets/css/styles.css?v=7">
 </head>
 <body>
 
@@ -347,7 +347,15 @@
 
       <details class="faq__item">
         <summary>Are children invited?</summary>
-        <div class="faq__body"><p>Fuck them kids.</p></div>
+        <!-- The answer is an image. Upload it as assets/img/no.gif (or .jpg,
+             .png, .webp — main.js tries each). Until it is there, the text
+             below stands in, so the question is never left unanswered. -->
+        <div class="faq__body">
+          <figure class="meme" id="kidsMeme" hidden>
+            <img class="meme__img" id="kidsMemeImg" alt="Bugs Bunny, saying no." decoding="async">
+          </figure>
+          <p id="kidsMemeFallback">No.</p>
+        </div>
       </details>
 
       <details class="faq__item">
@@ -402,7 +410,7 @@
   </div>
 </footer>
 
-<script src="assets/js/config.js?v=6"></script>
-<script src="assets/js/main.js?v=6"></script>
+<script src="assets/js/config.js?v=7"></script>
+<script src="assets/js/main.js?v=7"></script>
 </body>
 </html>
