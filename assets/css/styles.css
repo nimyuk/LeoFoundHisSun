@@ -419,13 +419,9 @@ ol, ul { margin: 0; padding: 0; }
 
 /* --- RSVP -------------------------------------------------------------- */
 .rsvp { margin-bottom: 2rem; }
-.rsvp__cta {
-  padding: clamp(2rem, 6vw, 3rem); text-align: center;
-  border: 1px solid var(--line); border-radius: 4px;
-  /* Transparent rather than a fixed colour, so the card always sits on
-     whatever background its section has. */
-  background: transparent;
-}
+/* No border and no fill — the button and its note sit directly on the
+   section, with only spacing separating them from the text above. */
+.rsvp__cta { padding: 0.5rem 0 0; text-align: center; }
 .rsvp__hint {
   margin: 1.1rem 0 0; font-size: 0.85rem; color: var(--ink-soft); font-style: italic;
 }
