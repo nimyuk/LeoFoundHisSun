@@ -158,26 +158,33 @@
 
   if (mount) {
     var url = (cfg.rsvpFormUrl || "").trim();
-    var isGoogleForm = /^https:\/\/docs\.google\.com\/forms\//.test(url);
+    // Accept the long docs.google.com address or a forms.gle short link.
+    var isGoogleForm = /^https:\/\/(docs\.google\.com\/forms\/|forms\.gle\/)/.test(url);
 
     if (isGoogleForm) {
-      var frame = document.createElement("iframe");
-      frame.className = "rsvp__frame";
-      frame.src = url.indexOf("embedded=true") === -1
-        ? url + (url.indexOf("?") === -1 ? "?" : "&") + "embedded=true"
-        : url;
-      frame.title = "RSVP form";
-      frame.loading = "lazy";
-      frame.setAttribute("frameborder", "0");
-      mount.appendChild(frame);
+      // embedded=true strips the form's own header and footer, which is right
+      // inside an iframe and wrong in a tab of its own.
+      var openUrl = url
+        .replace(/[?&]embedded=true/, function (m) { return m.charAt(0) === "?" ? "?" : ""; })
+        .replace(/\?$/, "");
 
-      var direct = document.createElement("p");
-      direct.className = "section__note";
-      direct.style.marginTop = "1rem";
-      direct.innerHTML =
-        'Form not loading? <a href="' + url.replace("&embedded=true", "").replace("?embedded=true", "") +
-        '" target="_blank" rel="noopener">Open it in a new tab &rarr;</a>';
-      mount.appendChild(direct);
+      var card = document.createElement("div");
+      card.className = "rsvp__cta";
+
+      var link = document.createElement("a");
+      link.className = "btn btn--solid";
+      link.href = openUrl;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.textContent = "Open the RSVP form";
+      card.appendChild(link);
+
+      var hint = document.createElement("p");
+      hint.className = "rsvp__hint";
+      hint.textContent = "Opens in a new tab. It takes about a minute.";
+      card.appendChild(hint);
+
+      mount.appendChild(card);
     } else {
       var card = document.createElement("div");
       card.className = "rsvp__placeholder";
