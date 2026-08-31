@@ -176,7 +176,7 @@
       link.href = openUrl;
       link.target = "_blank";
       link.rel = "noopener noreferrer";
-      link.textContent = "Open the RSVP form";
+      link.textContent = "Click to RSVP";
       card.appendChild(link);
 
       var hint = document.createElement("p");
