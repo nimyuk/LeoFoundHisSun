@@ -422,7 +422,9 @@ ol, ul { margin: 0; padding: 0; }
 .rsvp__cta {
   padding: clamp(2rem, 6vw, 3rem); text-align: center;
   border: 1px solid var(--line); border-radius: 4px;
-  background: rgba(255, 255, 255, 0.55);
+  /* Transparent rather than a fixed colour, so the card always sits on
+     whatever background its section has. */
+  background: transparent;
 }
 .rsvp__hint {
   margin: 1.1rem 0 0; font-size: 0.85rem; color: var(--ink-soft); font-style: italic;
