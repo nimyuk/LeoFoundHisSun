@@ -54,7 +54,7 @@ window.WEDDING_CONFIG = {
   // and any payments you have not marked private — worth checking your privacy
   // settings before this goes on a page you send to sixty people.
   honeymoon: {
-    venmo: "",
+    venmo: "venmo: "https://account.venmo.com/u/leo_lee",",
     // Optional second option, if you would rather give guests a choice.
     // Same rules: blank means it does not appear at all.
     otherLabel: "",
