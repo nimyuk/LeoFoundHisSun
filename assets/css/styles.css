@@ -466,11 +466,8 @@ ol, ul { margin: 0; padding: 0; }
 /* --- Honeymoon fund ---------------------------------------------------- */
 .gift__dream { color: var(--olive); }
 
-.gift {
-  margin: 2.5rem 0 2rem; padding: clamp(1.75rem, 5vw, 2.5rem);
-  text-align: center; border: 1px solid var(--line); border-radius: 4px;
-  background: rgba(185,195,174,0.14);
-}
+/* No box — the button sits directly on the section, matching the RSVP. */
+.gift { margin: 2.5rem 0 2rem; text-align: center; }
 .gift__actions { display: flex; flex-wrap: wrap; gap: 0.85rem; justify-content: center; }
 .gift__soon { margin: 0; font-size: 0.95rem; color: var(--ink-soft); font-style: italic; }
 
