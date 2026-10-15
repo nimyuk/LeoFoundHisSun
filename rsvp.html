@@ -15,8 +15,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="assets/css/styles.css?v=11">
-<link rel="stylesheet" href="assets/css/form.css?v=11">
+<link rel="stylesheet" href="assets/css/styles.css?v=12">
+<link rel="stylesheet" href="assets/css/form.css?v=12">
 </head>
 <body class="rsvppage">
 
@@ -42,15 +42,16 @@
       goes on this one.
     </p>
 
-    <!-- Shown when the form is not wired up yet. -->
+    <!-- Shown when the form is not wired up yet. Deliberately offers email
+         rather than the Google Form: sending guests to docs.google.com is the
+         thing this page exists to avoid. -->
     <div class="formcard" id="notReady" hidden>
       <h2>Nearly ready</h2>
       <p>
-        Our RSVP form is being set up and will be here shortly. If you would like
-        to reply right now, you can use
-        <a id="fallbackLink" href="index.html" target="_blank" rel="noopener noreferrer">this form</a>
-        instead, or simply email us at
-        <a id="fallbackEmail" href="mailto:kyuminleolee@gmail.com">kyuminleolee@gmail.com</a>.
+        Our RSVP form is being set up and will be here within a day or two &mdash;
+        please do check back. If you would rather reply now, just email us at
+        <a id="fallbackEmail" href="mailto:kyuminleolee@gmail.com">kyuminleolee@gmail.com</a>
+        with your name, whether you can make it, and how many of you there will be.
       </p>
     </div>
 
@@ -140,7 +141,7 @@
      and the guest stays on our site the whole time. -->
 <iframe name="gformSink" id="gformSink" title="Form submission target" hidden></iframe>
 
-<script src="assets/js/config.js?v=11"></script>
-<script src="assets/js/rsvp.js?v=11"></script>
+<script src="assets/js/config.js?v=12"></script>
+<script src="assets/js/rsvp.js?v=12"></script>
 </body>
 </html>

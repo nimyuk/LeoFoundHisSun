@@ -54,10 +54,6 @@
 
   /* --- Not wired up yet ------------------------------------------------ */
   if (!configured) {
-    var fallback = $("fallbackLink");
-    if (fallback && cfg.rsvpFormUrl) {
-      fallback.href = cfg.rsvpFormUrl.replace(/[?&]embedded=true/, "").replace(/\?$/, "");
-    }
     $("notReady").hidden = false;
     return;
   }
