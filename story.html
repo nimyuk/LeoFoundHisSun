@@ -22,9 +22,9 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Great+Vibes&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="assets/css/styles.css?v=18">
+<link rel="stylesheet" href="assets/css/styles.css?v=19">
 </head>
 <body>
 
@@ -55,9 +55,9 @@
 
 <!-- ===================== STORY ===================== -->
 <section class="section section--white" id="story">
-  <div class="wrap wrap--narrow">
+  <div class="wrap">
     <p class="eyebrow reveal">How we got here</p>
-    <h2 class="section__title reveal">Our Story</h2>
+    <h1 class="script-title reveal">Our Story&hellip;</h1>
 
     <!-- The two sun portraits. Add assets/img/leo.jpg and assets/img/yoonsun.jpg
          and this appears; main.js hides the whole block if either is missing, so
@@ -88,29 +88,76 @@
       </figcaption>
     </figure>
 
-    <div class="prose reveal">
-      <!-- PLACEHOLDER COPY — replace these three paragraphs with your own. -->
-      <p>
-        We met the way most good things start: unplanned, and slightly late. What was
-        supposed to be one coffee turned into a walk that lasted the rest of the afternoon,
-        and then into the sort of ordinary, easy days that quietly add up to a life.
-      </p>
-      <p>
-        Since then we have shared apartments and road trips, arguments about how to load a
-        dishwasher, a great many bad movies, and a few genuinely hard years that we came out
-        of holding on tighter than before. Somewhere in all of it, the question stopped being
-        <em>if</em> and became <em>when</em>.
-      </p>
-      <p>
-        Now it is April 2027, at a 1939 dairy barn in Virginia, with the small group of
-        people who made us who we are. Thank you for being one of them.
-      </p>
-      <p class="prose__note">
-        <strong>Note for the couple:</strong> replace this section with your own words —
-        it is the part guests read most closely. A photo can be dropped in below by
-        following the instructions in <code>assets/img/README.md</code>.
-      </p>
-    </div>
+    <!-- ============================ TIMELINE ============================
+         Each <li> is one milestone. To add another, copy a whole <li> block
+         and paste it in date order — the zig-zag above and below the line is
+         worked out from position, so nothing else needs changing.
+
+         Photos are optional and go in assets/img/ as story-1.jpg, story-2.jpg
+         and so on, matching the number in the src below. A slot with no file
+         simply does not appear, so the dates and captions can go in first and
+         the pictures can follow whenever you have them.
+
+         PLACEHOLDER dates and captions — replace with your own.
+         ================================================================= -->
+    <ol class="tl reveal">
+      <li class="tl__item reveal">
+        <span class="tl__dot" aria-hidden="true"></span>
+        <div class="tl__card">
+          <figure class="tl__photo" hidden>
+            <img src="assets/img/story-1.jpg" alt="" decoding="async">
+          </figure>
+          <p class="tl__date">00.00.0000</p>
+          <p class="tl__text">We met</p>
+        </div>
+      </li>
+      <li class="tl__item reveal">
+        <span class="tl__dot" aria-hidden="true"></span>
+        <div class="tl__card">
+          <figure class="tl__photo" hidden>
+            <img src="assets/img/story-2.jpg" alt="" decoding="async">
+          </figure>
+          <p class="tl__date">00.00.0000</p>
+          <p class="tl__text">Our first trip together</p>
+        </div>
+      </li>
+      <li class="tl__item reveal">
+        <span class="tl__dot" aria-hidden="true"></span>
+        <div class="tl__card">
+          <figure class="tl__photo" hidden>
+            <img src="assets/img/story-3.jpg" alt="" decoding="async">
+          </figure>
+          <p class="tl__date">00.00.0000</p>
+          <p class="tl__text">We moved in together</p>
+        </div>
+      </li>
+      <li class="tl__item reveal">
+        <span class="tl__dot" aria-hidden="true"></span>
+        <div class="tl__card">
+          <figure class="tl__photo" hidden>
+            <img src="assets/img/story-4.jpg" alt="" decoding="async">
+          </figure>
+          <p class="tl__date">00.00.0000</p>
+          <p class="tl__text">He asked, she said yes</p>
+        </div>
+      </li>
+      <li class="tl__item reveal">
+        <span class="tl__dot" aria-hidden="true"></span>
+        <div class="tl__card">
+          <figure class="tl__photo" hidden>
+            <img src="assets/img/story-5.jpg" alt="" decoding="async">
+          </figure>
+          <p class="tl__date">04.15.2027</p>
+          <p class="tl__text">We get married</p>
+        </div>
+      </li>
+    </ol>
+
+    <p class="tl__note reveal">
+      <strong>Note for the couple:</strong> replace the dates and captions above,
+      and drop photos into <code>assets/img/</code> as <code>story-1.jpg</code>
+      through <code>story-5.jpg</code> when you have them.
+    </p>
   </div>
 </section>
 
@@ -125,7 +172,7 @@
   </div>
 </footer>
 
-<script src="assets/js/config.js?v=18"></script>
-<script src="assets/js/main.js?v=18"></script>
+<script src="assets/js/config.js?v=19"></script>
+<script src="assets/js/main.js?v=19"></script>
 </body>
 </html>

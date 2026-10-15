@@ -182,6 +182,21 @@
     settle();
   }
 
+  /* --- Timeline photographs ---------------------------------------------
+     Each slot stays hidden until its file is confirmed to load, so the
+     captions can go up long before the pictures do.
+     --------------------------------------------------------------------- */
+  Array.prototype.forEach.call(document.querySelectorAll(".tl__photo"), function (fig) {
+    var img = fig.querySelector("img");
+    if (!img) return;
+
+    var show = function () { if (img.naturalWidth > 0) fig.hidden = false; };
+
+    if (img.complete) { show(); return; }
+    img.addEventListener("load", show);
+    img.addEventListener("error", function () { fig.hidden = true; });
+  });
+
   /* --- Honeymoon fund -------------------------------------------------- */
   var giftMount = document.getElementById("giftMount");
 

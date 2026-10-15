@@ -9,6 +9,7 @@ photographer. Drop files in here with these exact names to swap them in.
 | `leo.jpg` | Left sun portrait in Our Story | 600 × 600, square |
 | `yoonsun.jpg` | Right sun portrait in Our Story | 600 × 600, square |
 | `no.*` | The answer to "Are children invited?" in the FAQ | any, shown at 240px |
+| `story-1.jpg` … `story-5.jpg` | the Our Story timeline | portrait, 600 × 800 |
 | `hero.jpg` | Full-bleed background behind the names | 2400 × 1600, landscape |
 | `share.jpg` | Link preview when the site is texted or posted | 1200 × 630 |
 
@@ -37,6 +38,18 @@ the frame where faces usually sit.
 The filenames are case-sensitive on GitHub Pages: `leo.jpg`, not `Leo.JPG`. If
 your phone exported `.HEIC`, convert to JPEG first — browsers will not display
 HEIC.
+
+## The timeline photographs
+
+One per milestone on the Our Story page, named for its position:
+`story-1.jpg` is the first milestone, `story-2.jpg` the second, and so on.
+
+Portrait crops suit the frames best — they are shown at 3:4 — but any shape
+works, since the picture is cropped to fit rather than squashed.
+
+Each slot is independent: a milestone with no file simply shows its date and
+caption, so the dates can go up now and the pictures can follow one at a
+time. Adding a sixth milestone means adding `story-6.jpg` alongside it.
 
 ## The hero photograph
 
