@@ -15,8 +15,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="assets/css/styles.css?v=12">
-<link rel="stylesheet" href="assets/css/form.css?v=12">
+<link rel="stylesheet" href="assets/css/styles.css?v=13">
+<link rel="stylesheet" href="assets/css/form.css?v=13">
 </head>
 <body class="rsvppage">
 
@@ -75,7 +75,7 @@
         <p class="field__error" id="e-name" hidden></p>
       </div>
 
-      <div class="field">
+      <div class="field" id="emailField">
         <label class="field__label" for="f-email">Email address <span class="req">*</span></label>
         <p class="field__hint">So we can reach you if anything changes.</p>
         <input class="field__input" type="email" id="f-email" name="email" autocomplete="email" required>
@@ -90,7 +90,7 @@
 
       <!-- Everything below is only relevant to a yes. -->
       <div id="ifAttending" hidden>
-        <div class="field">
+        <div class="field" id="partyField">
           <label class="field__label" for="f-party">How many people in your party? <span class="req">*</span></label>
           <p class="field__hint">Including yourself, and only those named on your invitation.</p>
           <input class="field__input field__input--short" type="number" id="f-party" name="party" min="1" max="12" step="1" inputmode="numeric">
@@ -103,18 +103,18 @@
           <div class="choices" id="mealChoices"></div>
         </fieldset>
 
-        <div class="field">
+        <div class="field" id="dietaryField">
           <label class="field__label" for="f-dietary">Any dietary restrictions or allergies?</label>
           <input class="field__input" type="text" id="f-dietary" name="dietary">
         </div>
 
-        <div class="field">
+        <div class="field" id="songField">
           <label class="field__label" for="f-song">A song that will get you dancing</label>
           <input class="field__input" type="text" id="f-song" name="song">
         </div>
       </div>
 
-      <div class="field">
+      <div class="field" id="noteField">
         <label class="field__label" for="f-note">Anything else we should know?</label>
         <textarea class="field__input" id="f-note" name="note" rows="4"></textarea>
       </div>
@@ -141,7 +141,7 @@
      and the guest stays on our site the whole time. -->
 <iframe name="gformSink" id="gformSink" title="Form submission target" hidden></iframe>
 
-<script src="assets/js/config.js?v=12"></script>
-<script src="assets/js/rsvp.js?v=12"></script>
+<script src="assets/js/config.js?v=13"></script>
+<script src="assets/js/rsvp.js?v=13"></script>
 </body>
 </html>

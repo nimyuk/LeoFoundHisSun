@@ -87,16 +87,45 @@
   var mealHost = $("mealChoices");
   var meals = Array.isArray(form.meals) ? form.meals : [];
   meals.forEach(function (meal) { addChoice(mealHost, "meal", meal, meal); });
-  if (!meals.length || !(entries.meal || "").trim()) {
-    $("mealField").hidden = true;
-  }
+
+  /* --- Show only the questions this form actually has ------------------
+     A field with no entry id has nowhere to send its answer, so asking for
+     it would be worse than useless — the guest would type something that
+     silently went nowhere. Every optional field hides itself unless the
+     config names an entry for it.
+     --------------------------------------------------------------------- */
+  var optionalFields = {
+    email: "emailField",
+    party: "partyField",
+    meal: "mealField",
+    dietary: "dietaryField",
+    song: "songField",
+    note: "noteField"
+  };
+
+  Object.keys(optionalFields).forEach(function (key) {
+    var el = $(optionalFields[key]);
+    if (!el) return;
+    var present = !!(entries[key] || "").trim();
+    if (key === "meal") present = present && meals.length > 0;
+    el.hidden = !present;
+  });
+
+  var hasEmail = !!(entries.email || "").trim();
+  var hasParty = !!(entries.party || "").trim();
 
   /* --- Show the party questions only to a yes -------------------------- */
   var ifAttending = $("ifAttending");
 
   function syncAttending() {
     var picked = document.querySelector('input[name="attending"]:checked');
-    ifAttending.hidden = !picked || picked.value !== yesLabel;
+    var isYes = picked && picked.value === yesLabel;
+    // Nothing inside this block applies to a decline. If none of its fields
+    // exist on this form, the block never needs to appear at all.
+    var anyInside = [hasParty, !$("mealField").hidden,
+                     !$("dietaryField").hidden, !$("songField").hidden]
+                    .some(Boolean);
+    ifAttending.hidden = !isYes || !anyInside;
   }
 
   attendingHost.addEventListener("change", function () {
@@ -134,12 +163,14 @@
     }
 
     var email = $("f-email").value.trim();
-    if (!email) {
-      setError("email", "We need an email address in case anything changes.");
-      problems.push("email");
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setError("email", "That does not look like an email address.");
-      problems.push("email");
+    if (hasEmail) {
+      if (!email) {
+        setError("email", "We need an email address in case anything changes.");
+        problems.push("email");
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        setError("email", "That does not look like an email address.");
+        problems.push("email");
+      }
     }
 
     var attending = document.querySelector('input[name="attending"]:checked');
@@ -148,7 +179,7 @@
       problems.push("attending");
     }
 
-    if (attending && attending.value === yesLabel && (entries.party || "").trim()) {
+    if (attending && attending.value === yesLabel && hasParty) {
       var party = $("f-party").value.trim();
       var n = parseInt(party, 10);
       if (!party || isNaN(n) || n < 1) {
