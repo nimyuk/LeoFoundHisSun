@@ -133,17 +133,40 @@ node -e "console.log(require('crypto').createHash('sha256').update('leo-yoonsun-
 
 ### Using it
 
-1. Open your Google Form's responses and click **View in Sheets**.
-2. In the sheet: **File → Download → Comma Separated Values (.csv)**.
-3. Drop that file onto the dashboard (or paste the text).
+The quickest way is to connect the sheet once and let it keep itself current:
 
-It then shows headcount against your 60-seat plan, meal tallies, dietary needs
-and allergies pulled out as a list for the caterer, song requests, and a
+1. In the Google Sheet: **File → Share → Publish to web**.
+2. Pick the responses sheet and the format **Comma-separated values (.csv)**.
+3. Press **Publish**, copy the link, and paste it into the dashboard's
+   **Connect** box.
+
+After that the dashboard re-reads the sheet when you open it, whenever you
+return to the tab, every three minutes while it is open, and on **Refresh
+now**. **Replace data** disconnects it again.
+
+**Publishing a sheet makes it readable by anyone holding that link**, with no
+Google login. The link is saved in your browser's local storage and is
+deliberately *not* put in `config.js` — committing it would hand the guest
+list, emails included, to anyone who viewed the site's source. Treat the link
+like a key, and use **Publish to web → Stop publishing** once the replies are
+in.
+
+If you would rather publish nothing, the manual path still works: **File →
+Download → Comma Separated Values (.csv)** and drop the file on the page.
+
+It shows headcount against your 60-seat plan, meal tallies, dietary needs and
+allergies pulled out as a list for the caterer, song requests, and a
 searchable table of every reply, plus a **Copy emails** button for whatever is
 currently filtered.
 
 Column names are auto-detected from your form's question wording. Detection is
-a guess — dropdowns at the top let you correct any column it gets wrong.
+a guess — dropdowns at the top let you correct any column it gets wrong, and a
+correction is remembered and reapplied on later refreshes rather than being
+guessed again.
+
+Your party column holds a count and the names together, like
+`3 — Ben Ortiz, Cara Willems`. The dashboard reads the leading number as the
+seat count and ignores the rest.
 
 Answers are classified as attending/declined by pattern, handling the phrasings
 Google Forms produces ("Joyfully accepts", "Regretfully declines", "will not be

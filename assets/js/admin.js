@@ -43,6 +43,8 @@
   var AUTH_KEY = "ly-admin-session";
   var DATA_KEY = "ly-admin-data";
   var MAP_KEY = "ly-admin-map";
+  var SHEET_KEY = "ly-admin-sheet-url";
+  var REFRESH_MS = 3 * 60 * 1000;   // how often a connected sheet is re-read
   var MAX_ATTEMPTS = 5;
 
   var $ = function (id) { return document.getElementById(id); };
@@ -546,7 +548,18 @@
 
     state.headers = rows[0];
     state.rows = rows.slice(1);
-    state.map = detectColumns(state.headers);
+
+    // Re-detecting on every refresh would throw away a mapping that was
+    // corrected by hand, so a saved one is reused whenever it still fits the
+    // columns that arrived.
+    var saved = null;
+    try { saved = JSON.parse(localStorage.getItem(MAP_KEY) || "null"); } catch (e) { saved = null; }
+
+    var fits = saved && typeof saved === "object" && Object.keys(saved).every(function (k) {
+      return saved[k] === undefined || saved[k] < state.headers.length;
+    });
+
+    state.map = fits ? saved : detectColumns(state.headers);
 
     if (state.map.name === undefined && state.map.attending === undefined) {
       loadError(
@@ -580,6 +593,14 @@
   }
 
   function restoreSavedData() {
+    // A connected sheet is always fresher than a file saved earlier.
+    var url = savedSheetUrl();
+    if (url) {
+      $("sheetUrl").value = url;
+      connectSheet(url, false);
+      return;
+    }
+
     var saved;
     try { saved = localStorage.getItem(DATA_KEY); } catch (e) { return; }
     if (!saved) return;
@@ -596,6 +617,114 @@
       }
     } catch (e) { /* fall back to auto-detection */ }
   }
+
+  /* =====================================================================
+     CONNECTED SHEET
+     A Google Sheet published to the web serves its CSV to any origin, so the
+     dashboard can read it directly and keep itself current.
+
+     The link is kept in localStorage and nowhere else. Putting it in
+     config.js would publish the guest list to anyone who viewed the site's
+     source, which is the one thing this dashboard has been built to avoid.
+     ===================================================================== */
+  var sheetTimer = null;
+
+  function savedSheetUrl() {
+    try { return localStorage.getItem(SHEET_KEY) || ""; } catch (e) { return ""; }
+  }
+
+  function setLive(message, isError) {
+    var el = $("liveStatus");
+    el.textContent = message;
+    el.classList.toggle("is-error", !!isError);
+    el.hidden = !message;
+  }
+
+  function timeNow() {
+    var d = new Date();
+    return d.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+  }
+
+  function fetchSheet(url, quiet) {
+    if (!quiet) setLive("Checking…", false);
+
+    return fetch(url, { cache: "no-store" })
+      .then(function (res) {
+        if (!res.ok) throw new Error("http " + res.status);
+        return res.text();
+      })
+      .then(function (text) {
+        // A sheet that is not actually published answers with an HTML sign-in
+        // page rather than an error, so the shape of the reply is checked too.
+        if (/^\s*</.test(text)) throw new Error("not-csv");
+        if (!ingest(text, false)) throw new Error("unreadable");
+        setLive("Updated " + timeNow(), false);
+        $("refreshBtn").hidden = false;
+        $("changeDataBtn").hidden = false;
+        return true;
+      })
+      .catch(function (err) {
+        var why = err && err.message === "not-csv"
+          ? "that link gave a web page instead of a spreadsheet — check it is published as CSV"
+          : "could not reach the sheet";
+        setLive("Not updating — " + why, true);
+        return false;
+      });
+  }
+
+  function startAutoRefresh(url) {
+    clearInterval(sheetTimer);
+    sheetTimer = setInterval(function () {
+      if (document.hidden) return;        // no point polling a background tab
+      fetchSheet(url, true);
+    }, REFRESH_MS);
+  }
+
+  function connectSheet(url, isFirstTime) {
+    return fetchSheet(url).then(function (ok) {
+      if (!ok) return false;
+      try { localStorage.setItem(SHEET_KEY, url); } catch (e) {}
+      startAutoRefresh(url);
+      if (isFirstTime) $("connectError").hidden = true;
+      return true;
+    });
+  }
+
+  $("connectBtn").addEventListener("click", function () {
+    var url = $("sheetUrl").value.trim();
+    var errBox = $("connectError");
+    errBox.hidden = true;
+
+    if (!/^https:\/\/docs\.google\.com\/spreadsheets\//.test(url)) {
+      errBox.textContent =
+        "That should be a docs.google.com/spreadsheets link ending in output=csv, " +
+        "the one Publish to web gives you.";
+      errBox.hidden = false;
+      return;
+    }
+
+    if (url.indexOf("output=csv") === -1) {
+      errBox.textContent =
+        "That link is not the CSV one — in Publish to web, change the format from " +
+        "web page to Comma-separated values (.csv).";
+      errBox.hidden = false;
+      return;
+    }
+
+    connectSheet(url, true);
+  });
+
+  $("refreshBtn").addEventListener("click", function () {
+    var url = savedSheetUrl();
+    if (url) fetchSheet(url);
+  });
+
+  // Catch up straight away when the tab is brought back to the front.
+  document.addEventListener("visibilitychange", function () {
+    if (document.hidden) return;
+    var url = savedSheetUrl();
+    if (url) fetchSheet(url, true);
+  });
 
   /* --- File drop / picker ---------------------------------------------- */
   var drop = $("drop");
@@ -664,6 +793,11 @@
   }
 
   $("changeDataBtn").addEventListener("click", function () {
+    clearInterval(sheetTimer);
+    try { localStorage.removeItem(SHEET_KEY); } catch (e) {}
+    setLive("", false);
+    $("refreshBtn").hidden = true;
+    $("sheetUrl").value = "";
     $("loader").hidden = false;
     $("mapping").hidden = true;
     $("statsPanel").hidden = true;

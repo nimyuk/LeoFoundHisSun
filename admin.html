@@ -18,8 +18,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="assets/css/styles.css?v=14">
-<link rel="stylesheet" href="assets/css/admin.css?v=14">
+<link rel="stylesheet" href="assets/css/styles.css?v=15">
+<link rel="stylesheet" href="assets/css/admin.css?v=15">
 </head>
 <body class="admin">
 
@@ -67,20 +67,46 @@
     <section class="panel" id="sourcePanel">
       <div class="panel__head">
         <h2>Responses</h2>
-        <button class="btn btn--ghost btn--sm" id="changeDataBtn" type="button" hidden>Replace data</button>
+        <div class="panel__tools">
+          <span class="livestatus" id="liveStatus" hidden></span>
+          <button class="btn btn--ghost btn--sm" id="refreshBtn" type="button" hidden>Refresh now</button>
+          <button class="btn btn--ghost btn--sm" id="changeDataBtn" type="button" hidden>Replace data</button>
+        </div>
       </div>
 
       <div class="loader" id="loader">
         <p class="loader__lede">
           Your RSVPs live in the Google Sheet attached to your form. Nothing is
-          stored on this website &mdash; paste or drop the sheet's CSV below and
-          it is read <strong>entirely inside your browser</strong>. It is never
-          uploaded anywhere.
+          stored on this website &mdash; the dashboard reads the sheet
+          <strong>in your browser</strong> and keeps nothing of its own.
         </p>
 
+        <!-- Connect once, then it refreshes itself. -->
+        <div class="connect">
+          <h3 class="connect__title">Keep it up to date automatically</h3>
+          <ol class="loader__steps">
+            <li>In the Sheet: <strong>File &rarr; Share &rarr; Publish to web</strong>.</li>
+            <li>Choose the responses sheet, and the format <strong>Comma-separated values (.csv)</strong>.</li>
+            <li>Press <strong>Publish</strong>, then copy the link it gives you and paste it here.</li>
+          </ol>
+          <div class="connect__row">
+            <input class="search connect__input" type="url" id="sheetUrl"
+                   placeholder="https://docs.google.com/spreadsheets/d/e/.../pub?output=csv">
+            <button class="btn btn--solid btn--sm" id="connectBtn" type="button">Connect</button>
+          </div>
+          <p class="connect__note">
+            This link is saved <strong>in this browser only</strong>. It is never
+            added to the website's code, so nobody reading the site's source can
+            find it. Anyone who does get the link can read the sheet without a
+            password, so treat it like a key &mdash; and you can stop it at any
+            time with <strong>Publish to web &rarr; Stop publishing</strong>.
+          </p>
+          <p class="loader__error" id="connectError" role="alert" hidden></p>
+        </div>
+
+        <h3 class="connect__title">Or load a file by hand</h3>
         <ol class="loader__steps">
-          <li>Open your form's responses and click <strong>View in Sheets</strong>.</li>
-          <li>In the sheet: <strong>File &rarr; Download &rarr; Comma Separated Values (.csv)</strong>.</li>
+          <li>In the Sheet: <strong>File &rarr; Download &rarr; Comma Separated Values (.csv)</strong>.</li>
           <li>Drop that file below, or open it in a text editor and paste the contents.</li>
         </ol>
 
@@ -163,13 +189,15 @@
       <strong>How private is this?</strong> The password here keeps guests and
       casual visitors out, and that is all it does &mdash; this is a static site,
       so anyone determined enough can read the page's code. That is safe because
-      this page stores no guest data: everything you see is read from the file
-      you loaded, in your browser, this session. Your actual RSVP records stay in
-      Google Sheets behind your Google account, which is real security.
+      this page stores no guest data: what you see is read straight from your
+      sheet or from a file you loaded, in your browser, and nothing is kept on
+      the website. If you have connected a published sheet, that link lives in
+      this browser alone &mdash; but anyone who gets hold of it can read the
+      sheet without a password, so stop publishing once the replies are in.
     </p>
   </footer>
 </div>
 
-<script src="assets/js/admin.js?v=14"></script>
+<script src="assets/js/admin.js?v=15"></script>
 </body>
 </html>

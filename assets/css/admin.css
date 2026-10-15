@@ -218,3 +218,23 @@
 @media (prefers-reduced-motion: reduce) {
   .capacity__fill { transition: none; }
 }
+
+/* --- Connected sheet --------------------------------------------------- */
+.connect { margin: 0 0 2rem; }
+.connect__title { font-size: 1.1rem; margin: 1.75rem 0 0.75rem; }
+.connect__title:first-child { margin-top: 0; }
+.connect__row { display: flex; gap: 0.6rem; flex-wrap: wrap; align-items: center; }
+.connect__input { flex: 1 1 24rem; min-width: 0; }
+.connect__note {
+  margin: 0.9rem 0 0; font-size: 0.82rem; line-height: 1.65; color: var(--ink-soft);
+  max-width: 68ch;
+}
+.connect__note strong { color: var(--ink); font-weight: 400; }
+
+.livestatus {
+  font-size: 0.78rem; letter-spacing: 0.04em; color: var(--ink-soft);
+  padding: 0.3rem 0.7rem; border-radius: 999px; background: var(--lilac-pale);
+  white-space: nowrap;
+}
+.livestatus.is-error { background: rgba(161, 53, 83, 0.1); color: var(--rose); }
+.livestatus[hidden] { display: none; }
