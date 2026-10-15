@@ -46,30 +46,6 @@
     onScroll();
   }
 
-  /* --- Active section in nav ------------------------------------------ */
-  var sections = Array.prototype.slice.call(document.querySelectorAll("main section[id]"));
-  var navLinks = {};
-  Array.prototype.forEach.call(document.querySelectorAll('.nav__menu a[href^="#"]'), function (a) {
-    navLinks[a.getAttribute("href").slice(1)] = a;
-  });
-
-  if ("IntersectionObserver" in window && sections.length) {
-    var spy = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          var link = navLinks[entry.target.id];
-          if (!link) return;
-          if (entry.isIntersecting) {
-            Object.keys(navLinks).forEach(function (k) { navLinks[k].classList.remove("is-active"); });
-            link.classList.add("is-active");
-          }
-        });
-      },
-      { rootMargin: "-45% 0px -50% 0px" }
-    );
-    sections.forEach(function (s) { spy.observe(s); });
-  }
-
   /* --- Reveal on scroll ------------------------------------------------ */
   var revealables = document.querySelectorAll(".reveal");
   var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -151,44 +127,6 @@
 
     tick();
     var timer = setInterval(tick, 1000);
-  }
-
-  /* --- RSVP form ------------------------------------------------------- */
-  var mount = document.getElementById("rsvpMount");
-
-  if (mount) {
-    var url = (cfg.rsvpFormUrl || "").trim();
-    // Accept the long docs.google.com address or a forms.gle short link.
-    var isGoogleForm = /^https:\/\/(docs\.google\.com\/forms\/|forms\.gle\/)/.test(url);
-
-    if (isGoogleForm) {
-      // Guests go to our own rsvp.html, which posts to this Google Form behind
-      // the scenes. The address above is still what identifies the form, and
-      // rsvp.html falls back to it if the entry ids are not filled in yet.
-      var card = document.createElement("div");
-      card.className = "rsvp__cta";
-
-      var link = document.createElement("a");
-      link.className = "btn btn--solid";
-      link.href = "rsvp.html";
-      link.textContent = "Click to RSVP";
-      card.appendChild(link);
-
-      var hint = document.createElement("p");
-      hint.className = "rsvp__hint";
-      hint.textContent = "It takes about a minute.";
-      card.appendChild(hint);
-
-      mount.appendChild(card);
-    } else {
-      var card = document.createElement("div");
-      card.className = "rsvp__placeholder";
-      card.innerHTML =
-        "<h3>" + (mount.dataset.emptyTitle || "RSVP opens soon") + "</h3>" +
-        "<p>Invitations go out ahead of the date, and the form will appear right here. " +
-        "If you already know your answer, we would love to hear it early.</p>";
-      mount.appendChild(card);
-    }
   }
 
   /* --- FAQ image answer -------------------------------------------------

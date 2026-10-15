@@ -8,13 +8,31 @@ dependencies to keep alive between now and the wedding — open `index.html` in 
 browser and it works.
 
 ```
-index.html            every section of the site
-assets/css/styles.css palette, type, layout
-assets/js/config.js   ← edit this first: names, date, RSVP link, contact
-assets/js/main.js     countdown, nav, RSVP embed, scroll reveals
+index.html            the landing page: names, date, countdown, RSVP
+story.html            Our Story, with the two sun portraits
+schedule.html         the day's timeline
+venue.html            Sweeney Barn: address, parking, dress code
+honeymoon.html        the honeymoon fund and its Venmo button
+faq.html              questions and answers
+rsvp.html             the RSVP form guests fill in
+admin.html            your private dashboard (password Leo1234)
+
+assets/css/styles.css palette, type, layout, shared across every page
+assets/css/form.css   the RSVP form
+assets/css/admin.css  the dashboard
+assets/js/config.js   ← edit this first: date, RSVP ids, Venmo, contact
+assets/js/main.js     countdown, nav, sun portraits, Venmo button
+assets/js/rsvp.js     the RSVP form
+assets/js/admin.js    the dashboard
 assets/wedding.ics    a calendar file — nothing links to it at the moment
-assets/img/           drop photos here (see the README in that folder)
+assets/img/           photos (see the README in that folder)
 ```
+
+Each page is a complete HTML file: there is no build step and no templating,
+so the nav and footer are repeated in every one. Changing a nav item means
+changing it in all eight files — `grep -l 'nav__menu' *.html` lists them.
+That is the trade for a site that will still deploy untouched in 2027 with no
+toolchain to maintain.
 
 ## Editing it
 

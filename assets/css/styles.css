@@ -518,3 +518,15 @@ ol, ul { margin: 0; padding: 0; }
   .faq__item[open] .faq__body, .faq__body { display: block; }
   .reveal { opacity: 1 !important; transform: none !important; }
 }
+
+/* --- Current page in the nav ------------------------------------------ */
+.nav__menu a.is-current { color: var(--violet); }
+.nav__menu a.is-current:not(.nav__cta) { border-bottom: 1px solid var(--lilac-mid); }
+.nav__cta.is-current { background: var(--violet); color: #fff !important; }
+
+/* The landing page is the hero and nothing else, so it keeps the full
+   viewport without a scroll cue pointing at an empty page. */
+.hero:last-child { min-height: calc(100svh - var(--nav-h)); }
+
+/* Sub-pages open straight into a section under the nav. */
+.page-lede { margin-bottom: 2.5rem; }
