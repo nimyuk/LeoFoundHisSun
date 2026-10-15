@@ -21,6 +21,7 @@
   /* Type */
   --display: "Cormorant Garamond", "Iowan Old Style", Georgia, "Times New Roman", serif;
   --sans: "Jost", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --script: "Great Vibes", "Snell Roundhand", "Apple Chancery", cursive;
 
   /* Rhythm */
   --wrap: 1080px;
@@ -184,56 +185,40 @@ ol, ul { margin: 0; padding: 0; }
 }
 .hero__inner { position: relative; z-index: 1; max-width: 900px; }
 
-.hero__kicker {
-  font-size: 0.74rem; letter-spacing: 0.3em; text-transform: uppercase;
-  color: var(--ink-soft); margin-bottom: 1.75rem;
-}
-.hero__names {
-  font-size: clamp(3.4rem, 13vw, 8rem);
-  font-weight: 300; line-height: 1; letter-spacing: 0.01em;
-  display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
-  gap: clamp(0.6rem, 2.5vw, 1.75rem);
-  margin-bottom: 1.5rem;
-}
-.hero__amp { font-style: italic; color: var(--accent); font-size: 0.72em; }
-.hero__invite {
-  font-family: var(--display); font-style: italic;
-  font-size: clamp(1.1rem, 2.5vw, 1.5rem); color: var(--ink-soft);
-  margin-bottom: 2.5rem;
+.hero__count {
+  font-family: var(--display);
+  font-size: clamp(0.82rem, 1.6vw, 1rem);
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--ink); margin-bottom: clamp(0.5rem, 2vw, 1rem);
+  min-height: 1.4em;   /* holds its place while the count is worked out */
 }
 
-.hero__meta {
-  display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
-  gap: clamp(1rem, 4vw, 2.5rem); margin-bottom: 2.75rem;
+.hero__script {
+  font-family: var(--script);
+  font-weight: 400;
+  /* Script faces carry long ascenders and descenders, so this needs more
+     room above and below than a serif of the same size would. */
+  font-size: clamp(3.2rem, 11vw, 7.5rem);
+  line-height: 1.15;
+  color: var(--ink);
+  margin: 0 0 clamp(0.75rem, 2.5vw, 1.5rem);
+  padding-bottom: 0.08em;
 }
-.hero__meta-item { display: flex; flex-direction: column; gap: 0.3rem; }
-.hero__meta-label {
-  font-size: 0.7rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--accent);
-}
-.hero__meta-value { font-family: var(--display); font-size: clamp(1.2rem, 2.6vw, 1.65rem); }
-.hero__meta-rule { width: 1px; height: 42px; background: var(--line); }
-@media (max-width: 560px) { .hero__meta-rule { display: none; } }
 
-/* Countdown */
-.countdown {
-  display: flex; justify-content: center; gap: clamp(0.75rem, 3vw, 2rem);
-  margin-bottom: 2.75rem;
+.hero__line {
+  font-family: var(--display);
+  font-size: clamp(1.05rem, 2.2vw, 1.45rem);
+  color: var(--ink);
+  margin-bottom: clamp(1.75rem, 4vw, 2.5rem);
 }
-.countdown__unit {
-  min-width: clamp(58px, 15vw, 84px);
-  padding: 0.85rem 0.4rem 0.7rem;
-  border: 1px solid var(--line); border-radius: 3px;
-  background: rgba(255,255,255,0.5);
+.hero__sep { color: var(--accent); margin: 0 0.5rem; }
+
+@media (max-width: 560px) {
+  /* Three parts on one line is too much at phone width. */
+  .hero__sep { display: block; height: 0; overflow: hidden; margin: 0.15rem 0; }
 }
-.countdown__num {
-  display: block; font-family: var(--display);
-  font-size: clamp(1.6rem, 5vw, 2.4rem); line-height: 1; font-variant-numeric: tabular-nums;
-}
-.countdown__label {
-  display: block; font-size: 0.62rem; letter-spacing: 0.18em;
-  text-transform: uppercase; color: var(--ink-soft); margin-top: 0.5rem;
-}
-.countdown__message, .countdown__fallback {
+
+.countdown__message {
   font-family: var(--display); font-size: 1.35rem; font-style: italic; color: var(--violet);
   margin: 0;
 }
@@ -248,6 +233,11 @@ ol, ul { margin: 0; padding: 0; }
 .btn--solid { background: var(--violet); color: #fff; border: 1px solid var(--violet); }
 .btn--solid:hover { background: var(--violet-deep); border-color: var(--violet-deep); transform: translateY(-1px); }
 .btn--ghost { border: 1px solid var(--line); color: var(--ink); background: transparent; }
+.btn--square {
+  border-radius: 2px; padding: 1rem 2.6rem;
+  background: var(--violet); color: #fff; border: 1px solid var(--violet);
+}
+.btn--square:hover { background: var(--violet-deep); border-color: var(--violet-deep); }
 .btn--ghost:hover { border-color: var(--violet); color: var(--violet); }
 
 .hero__scroll {
@@ -530,3 +520,24 @@ ol, ul { margin: 0; padding: 0; }
 
 /* Sub-pages open straight into a section under the nav. */
 .page-lede { margin-bottom: 2.5rem; }
+
+/* --- Hero with a photograph -------------------------------------------- */
+/* main.js adds this class once assets/img/hero.jpg has actually loaded, so
+   the white text never appears over a background that failed to arrive. */
+.hero--photo .hero__bg {
+  background: var(--hero-photo) center / cover no-repeat;
+}
+.hero--photo .hero__bg::after {
+  /* Scrim: a photograph alone rarely holds white text at every size. */
+  background-image: none;
+  background-color: rgba(45, 37, 53, 0.42);
+  opacity: 1;
+}
+.hero--photo .hero__count,
+.hero--photo .hero__script,
+.hero--photo .hero__line { color: #fff; text-shadow: 0 1px 24px rgba(45, 37, 53, 0.45); }
+.hero--photo .hero__sep { color: rgba(255, 255, 255, 0.75); }
+.hero--photo .btn--square {
+  background: rgba(45, 37, 53, 0.55); border-color: rgba(255, 255, 255, 0.75); color: #fff;
+}
+.hero--photo .btn--square:hover { background: rgba(45, 37, 53, 0.78); border-color: #fff; }

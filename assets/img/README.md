@@ -38,23 +38,19 @@ The filenames are case-sensitive on GitHub Pages: `leo.jpg`, not `Leo.JPG`. If
 your phone exported `.HEIC`, convert to JPEG first — browsers will not display
 HEIC.
 
-## Turning on the hero photo
+## The hero photograph
 
-Open `assets/css/styles.css`, find `.hero__bg`, and add the photo as the last
-layer of the `background` shorthand — the gradients above it stay in place as a
-scrim so the text remains readable:
+Drop a landscape photo at `assets/img/hero.jpg` and the landing page uses it
+as a full-bleed background: a dark scrim goes over it and the text turns
+white, as on the reference design. **No CSS to edit** — the page checks
+whether the file loaded and switches itself.
 
-```css
-.hero__bg {
-  background:
-    radial-gradient(120% 90% at 50% 0%, rgba(255,255,255,0.72) 0%, rgba(255,255,255,0) 55%),
-    linear-gradient(175deg, rgba(250,246,239,0.55) 0%, rgba(242,235,223,0.75) 100%),
-    url("../img/hero.jpg") center/cover no-repeat;
-}
-```
+With no file there, the landing page keeps the lilac wash and dark text, so
+nothing looks broken while you are still choosing a picture.
 
-Check the contrast on a phone before you commit — a busy photo behind large
-serif type is the single easiest way to make a wedding site hard to read.
+Pick something with a calm middle: the names and the countdown sit across the
+centre, and a busy subject right there fights the script type. A wide shot
+with sky, water or an out-of-focus background works best.
 
 ## Sizing
 

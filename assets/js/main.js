@@ -67,66 +67,52 @@
     Array.prototype.forEach.call(revealables, function (el) { revealer.observe(el); });
   }
 
-  /* --- Countdown ------------------------------------------------------- */
-  var countdownEl = document.getElementById("countdown");
+  /* --- Countdown -------------------------------------------------------
+     One line, as on the landing page: "182 DAYS TO THE EVENT".
+     --------------------------------------------------------------------- */
+  var countLine = document.getElementById("countdownLine");
   var target = cfg.ceremonyStart ? new Date(cfg.ceremonyStart) : null;
 
-  if (countdownEl && target && !isNaN(target.getTime())) {
-    var units = [
-      { key: "days", label: "Days" },
-      { key: "hours", label: "Hours" },
-      { key: "minutes", label: "Minutes" },
-      { key: "seconds", label: "Seconds" }
-    ];
+  if (countLine && target && !isNaN(target.getTime())) {
+    var end = cfg.receptionEnd ? new Date(cfg.receptionEnd) : null;
 
-    // Build the markup once, then only touch the numbers on each tick.
-    var nums = {};
-    units.forEach(function (u) {
-      var wrapEl = document.createElement("div");
-      wrapEl.className = "countdown__unit";
-
-      var num = document.createElement("span");
-      num.className = "countdown__num";
-      num.textContent = "--";
-
-      var label = document.createElement("span");
-      label.className = "countdown__label";
-      label.textContent = u.label;
-
-      wrapEl.appendChild(num);
-      wrapEl.appendChild(label);
-      countdownEl.appendChild(wrapEl);
-      nums[u.key] = num;
-    });
-
-    var pad = function (n) { return n < 10 ? "0" + n : String(n); };
-
-    var tick = function () {
+    var renderCount = function () {
       var diff = target.getTime() - Date.now();
 
       if (diff <= 0) {
-        countdownEl.innerHTML = "";
-        var msg = document.createElement("p");
-        msg.className = "countdown__message";
-        var end = cfg.receptionEnd ? new Date(cfg.receptionEnd) : null;
-        msg.textContent =
+        countLine.textContent =
           end && !isNaN(end.getTime()) && Date.now() < end.getTime()
-            ? "Today is the day."
-            : "Married — thank you for celebrating with us.";
-        countdownEl.appendChild(msg);
-        clearInterval(timer);
+            ? "Today is the day"
+            : "Married";
+        clearInterval(countTimer);
         return;
       }
 
-      var s = Math.floor(diff / 1000);
-      nums.days.textContent = String(Math.floor(s / 86400));
-      nums.hours.textContent = pad(Math.floor(s / 3600) % 24);
-      nums.minutes.textContent = pad(Math.floor(s / 60) % 60);
-      nums.seconds.textContent = pad(s % 60);
+      // Round up, so the last day before the wedding reads "1 day", not "0".
+      var days = Math.ceil(diff / 86400000);
+      countLine.textContent = days === 1 ? "1 DAY TO THE EVENT" : days + " DAYS TO THE EVENT";
     };
 
-    tick();
-    var timer = setInterval(tick, 1000);
+    renderCount();
+    // Once a minute is plenty for a figure that changes daily, and it keeps
+    // the line correct across midnight without a timer per second.
+    var countTimer = setInterval(renderCount, 60000);
+  }
+
+  /* --- Hero photograph --------------------------------------------------
+     The white-text treatment is only switched on once the photo has really
+     loaded. Setting it in CSS up front would leave white text on a pale
+     background whenever the file is missing.
+     --------------------------------------------------------------------- */
+  var hero = document.querySelector(".hero");
+
+  if (hero) {
+    var heroImg = new Image();
+    heroImg.onload = function () {
+      hero.style.setProperty("--hero-photo", 'url("assets/img/hero.jpg")');
+      hero.classList.add("hero--photo");
+    };
+    heroImg.src = "assets/img/hero.jpg";
   }
 
   /* --- FAQ image answer -------------------------------------------------
