@@ -12,7 +12,7 @@ index.html            every section of the site
 assets/css/styles.css palette, type, layout
 assets/js/config.js   ← edit this first: names, date, RSVP link, contact
 assets/js/main.js     countdown, nav, RSVP embed, scroll reveals
-assets/wedding.ics    the "Add to calendar" download
+assets/wedding.ics    a calendar file — nothing links to it at the moment
 assets/img/           drop photos here (see the README in that folder)
 ```
 
