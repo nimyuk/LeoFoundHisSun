@@ -52,21 +52,28 @@ window.WEDDING_CONFIG = {
   // offers the Google Form as a fallback, so the page is never broken.
   rsvpForm: {
     entries: {
-      name: "",       // e.g. "entry.1234567890"
-      email: "",
-      attending: "",
-      party: "",
-      meal: "",
-      dietary: "",
-      song: "",
-      note: "",
+      name:      "entry.1970233859",  // Your full name
+      email:     "entry.1989508418",  // Email address
+      party:     "entry.963267807",   // How many in your party
+      attending: "entry.778911414",   // Will you attend?
+      dietary:   "entry.1517357264",  // Dietary restrictions
+      meal:      "",                  // no such question on the form
+      song:      "",
+      note:      "",
     },
 
     // These must match the options in your Google Form EXACTLY, character for
     // character. Google silently records a blank when a choice does not match.
-    attendingYes: "Joyfully accepts",
-    attendingNo: "Regretfully declines",
-    meals: ["Chicken", "Beef", "Vegetarian"],
+    attendingYes: "Yes",
+    attendingNo: "No",
+    meals: [],
+
+    // The form has one question for the party, but asking for a number and a
+    // list of names separately is easier to answer than one box doing both.
+    // The two inputs are joined before sending — "3 — Amy Chen, Ben Ortiz" —
+    // so the spreadsheet keeps both in that single column, and the dashboard
+    // still reads the leading number as the seat count.
+    askPartyNames: true,
   },
 
   // ---- Contact ----------------------------------------------------------

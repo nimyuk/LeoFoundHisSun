@@ -15,8 +15,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="assets/css/styles.css?v=13">
-<link rel="stylesheet" href="assets/css/form.css?v=13">
+<link rel="stylesheet" href="assets/css/styles.css?v=14">
+<link rel="stylesheet" href="assets/css/form.css?v=14">
 </head>
 <body class="rsvppage">
 
@@ -91,10 +91,17 @@
       <!-- Everything below is only relevant to a yes. -->
       <div id="ifAttending" hidden>
         <div class="field" id="partyField">
-          <label class="field__label" for="f-party">How many people in your party? <span class="req">*</span></label>
+          <label class="field__label" for="f-party">How many of you are coming? <span class="req">*</span></label>
           <p class="field__hint">Including yourself, and only those named on your invitation.</p>
           <input class="field__input field__input--short" type="number" id="f-party" name="party" min="1" max="12" step="1" inputmode="numeric">
           <p class="field__error" id="e-party" hidden></p>
+        </div>
+
+        <div class="field" id="partyNamesField" hidden>
+          <label class="field__label" for="f-partyNames">And who is coming with you?</label>
+          <p class="field__hint">Everyone except yourself, since you are named above. One per line, or separated by commas — it helps us get the place cards right.</p>
+          <textarea class="field__input" id="f-partyNames" rows="3"></textarea>
+          <p class="field__error" id="e-partyNames" hidden></p>
         </div>
 
         <fieldset class="field" id="mealField">
@@ -141,7 +148,7 @@
      and the guest stays on our site the whole time. -->
 <iframe name="gformSink" id="gformSink" title="Form submission target" hidden></iframe>
 
-<script src="assets/js/config.js?v=13"></script>
-<script src="assets/js/rsvp.js?v=13"></script>
+<script src="assets/js/config.js?v=14"></script>
+<script src="assets/js/rsvp.js?v=14"></script>
 </body>
 </html>

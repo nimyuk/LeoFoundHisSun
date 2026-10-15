@@ -113,6 +113,8 @@
 
   var hasEmail = !!(entries.email || "").trim();
   var hasParty = !!(entries.party || "").trim();
+  var askNames = hasParty && form.askPartyNames !== false;
+  $("partyNamesField").hidden = !askNames;
 
   /* --- Show the party questions only to a yes -------------------------- */
   var ifAttending = $("ifAttending");
@@ -148,14 +150,14 @@
     if (input) input.classList.remove("is-invalid");
   }
 
-  ["name", "email", "party"].forEach(function (key) {
+  ["name", "email", "party", "partyNames"].forEach(function (key) {
     var input = $("f-" + key);
     if (input) input.addEventListener("input", function () { clearError(key); });
   });
 
   function validate() {
     var problems = [];
-    ["name", "email", "party", "attending"].forEach(clearError);
+    ["name", "email", "party", "partyNames", "attending"].forEach(clearError);
 
     if (!$("f-name").value.trim()) {
       setError("name", "Please tell us who is replying.");
@@ -188,6 +190,15 @@
       } else if (n > 12) {
         setError("party", "That is more than we can seat on one reply — please email us.");
         problems.push("party");
+      } else if (askNames && n > 1) {
+        // One guest is already named at the top of the form; two or more are not.
+        var namesGiven = $("f-partyNames").value
+          .split(/[\n,]+/)
+          .filter(function (x) { return x.trim(); }).length;
+        if (namesGiven < n - 1) {
+          setError("partyNames", "Please list everyone coming with you, so we can name their seats.");
+          problems.push("partyNames");
+        }
       }
     }
 
@@ -209,6 +220,21 @@
       var picked = document.querySelector('input[name="' + key + '"]:checked');
       return picked ? picked.value : "";
     }
+
+    // The form has one question for the party, so the count and the names are
+    // joined into it: "3 — Amy Chen, Ben Ortiz". The number stays first so the
+    // dashboard still reads it as the seat count.
+    if (key === "party" && askNames) {
+      var count = $("f-party").value.trim();
+      var names = $("f-partyNames").value
+        .split(/[\n,]+/)
+        .map(function (n) { return n.trim(); })
+        .filter(Boolean)
+        .join(", ");
+      if (!count) return names;
+      return names ? count + " \u2014 " + names : count;
+    }
+
     var input = $("f-" + key);
     return input ? input.value.trim() : "";
   }
