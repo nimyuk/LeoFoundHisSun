@@ -47,17 +47,45 @@ Search the source for `PLACEHOLDER` and work through the list:
 
 ## Wiring up the RSVP
 
+Guests fill in `rsvp.html`, a form on this site styled like every other page.
+It posts to a Google Form behind the scenes, so answers land in the same
+Google Sheet and the admin dashboard needs no changes. Nobody is sent off to
+docs.google.com.
+
 1. Build the form at [forms.google.com](https://forms.google.com). Useful
    fields: name, attending yes/no, number in your party, meal choice, dietary
    restrictions, song request, and a free-text note.
 2. In the form, click **Send**, then the `<>` embed tab, and copy the URL out of
-   the `src="..."` attribute. It looks like
-   `https://docs.google.com/forms/d/e/FORM_ID/viewform?embedded=true`.
-3. Paste it into `rsvpFormUrl` in `assets/js/config.js`.
+   the `src="..."` attribute. Paste it into `rsvpFormUrl` in
+   `assets/js/config.js`. That address is what identifies which form to post to.
+3. Get the question ids: in the form, **three dots → Get pre-filled link**, type
+   a throwaway answer into every question, press **Get link**, and copy it. The
+   link contains one `entry.1234567890=your-answer` per question. Put each
+   number into the matching field under `rsvpForm.entries` in `config.js`.
+4. Make sure `attendingYes`, `attendingNo` and `meals` in `config.js` match
+   your form's options **exactly**, character for character.
 
-Until that field is filled in the RSVP section shows an "RSVP opens soon" card
-rather than a broken frame, so the site is safe to publish early. Responses land
-in a Google Sheet you own — no third-party service, no account for guests.
+Until the entry ids are filled in, `rsvp.html` says the form is not ready yet
+and offers the Google Form as a fallback, so the page is never broken.
+
+### Two things to know about this approach
+
+**Mark the questions optional in Google.** This page enforces what is required
+itself. If Google also marks a question required and we do not send it, Google
+rejects the whole submission.
+
+**A rejected submission looks identical to an accepted one from here.** The
+response comes back from Google's domain, so the browser will not let this site
+read it — the page can tell that the request finished, not what it said. A
+mistyped `entry` number, or a meal option that does not match its wording in
+Google, will therefore show the guest a cheerful thank-you while recording
+nothing, or recording a blank. **Send one test reply yourself and confirm it
+appears in the Sheet** before giving the link to anyone.
+
+Posting to a Google Form from your own page is not a documented, supported API.
+It is widely used and has been stable for years, but Google could change it. If
+replies ever stop arriving, blank out the `entries` values in `config.js` and
+`rsvp.html` falls back to the Google Form immediately.
 
 ## The RSVP dashboard
 

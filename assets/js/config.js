@@ -39,6 +39,36 @@ window.WEDDING_CONFIG = {
   rsvpDeadline: "2027-02-15T23:59:00-05:00",
   rsvpDeadlineLabel: "February 15, 2027",
 
+  // ---- The RSVP form on our own page (rsvp.html) -------------------------
+  // Guests fill in a form styled like the rest of the site; it posts to the
+  // Google Form above, so answers still land in the same spreadsheet.
+  //
+  // Google identifies each question by a number like entry.1234567890. To
+  // find yours: open the form, click the three dots, "Get pre-filled link",
+  // type a throwaway answer into every question, press "Get link", copy it,
+  // and read the entry numbers out of it.
+  //
+  // While these are blank, rsvp.html says the form is not ready yet and
+  // offers the Google Form as a fallback, so the page is never broken.
+  rsvpForm: {
+    entries: {
+      name: "",       // e.g. "entry.1234567890"
+      email: "",
+      attending: "",
+      party: "",
+      meal: "",
+      dietary: "",
+      song: "",
+      note: "",
+    },
+
+    // These must match the options in your Google Form EXACTLY, character for
+    // character. Google silently records a blank when a choice does not match.
+    attendingYes: "Joyfully accepts",
+    attendingNo: "Regretfully declines",
+    meals: ["Chicken", "Beef", "Vegetarian"],
+  },
+
   // ---- Contact ----------------------------------------------------------
   contactEmail: "kyuminleolee@gmail.com",
 

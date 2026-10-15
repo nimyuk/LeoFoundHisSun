@@ -1,0 +1,100 @@
+/* ==========================================================================
+   RSVP form — rsvp.html
+   Builds on styles.css; only the form itself is described here.
+   ========================================================================== */
+
+.rsvppage .nav__menu a {
+  font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
+}
+.rsvppage main { padding-bottom: clamp(3rem, 8vw, 5rem); }
+
+#gformSink { display: none; }
+
+/* --- Fields ------------------------------------------------------------ */
+.rsvpform[hidden], .formcard[hidden] { display: none; }
+.rsvpform { margin-top: 1rem; }
+
+.field {
+  margin: 0 0 2rem; padding: 0; border: 0;   /* resets <fieldset> too */
+}
+.field__label {
+  display: block; padding: 0;
+  font-family: var(--display); font-size: 1.2rem; color: var(--ink);
+  margin-bottom: 0.3rem;
+}
+.req { color: var(--accent); font-family: var(--sans); font-size: 0.8rem; vertical-align: 2px; }
+
+.field__hint { font-size: 0.86rem; color: var(--ink-soft); margin: 0 0 0.7rem; }
+
+.field__input {
+  width: 100%; font: inherit; font-size: 1rem; color: var(--ink);
+  padding: 0.75rem 0.85rem;
+  background: var(--white); border: 1px solid var(--line); border-radius: 4px;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+.field__input:focus {
+  outline: none; border-color: var(--violet);
+  box-shadow: 0 0 0 3px rgba(107, 84, 148, 0.14);
+}
+.field__input--short { max-width: 7rem; }
+textarea.field__input { resize: vertical; min-height: 6rem; }
+
+.field__input.is-invalid { border-color: var(--rose); }
+.field__error {
+  margin: 0.5rem 0 0; font-size: 0.85rem; color: var(--rose);
+}
+.field__error[hidden] { display: none; }
+
+/* --- Radio choices ----------------------------------------------------- */
+.choices { display: flex; flex-direction: column; gap: 0.6rem; }
+
+.choice {
+  display: flex; align-items: flex-start; gap: 0.7rem; cursor: pointer;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--line); border-radius: 4px;
+  background: var(--white);
+  transition: border-color 0.18s ease, background 0.18s ease;
+}
+.choice:hover { border-color: var(--lilac-mid); }
+.choice input { margin: 0.25rem 0 0; accent-color: var(--violet); flex-shrink: 0; }
+.choice span { font-size: 0.97rem; color: var(--ink); }
+.choice:has(input:checked) { border-color: var(--violet); background: var(--lilac-pale); }
+.choice:focus-within { box-shadow: 0 0 0 3px rgba(107, 84, 148, 0.14); }
+
+/* --- Submit ------------------------------------------------------------ */
+.formactions { margin-top: 2.5rem; }
+.formactions .btn { border: 0; font-family: inherit; cursor: pointer; }
+.formactions .btn[disabled] { opacity: 0.6; cursor: default; }
+.formactions__note { margin: 0.9rem 0 0; font-size: 0.83rem; color: var(--ink-soft); font-style: italic; }
+
+.formerror {
+  margin: 1.5rem 0 0; padding: 0.85rem 1rem; border-radius: 4px;
+  background: rgba(161, 53, 83, 0.1); color: var(--rose); font-size: 0.9rem;
+}
+.formerror[hidden] { display: none; }
+
+/* --- Cards: not-ready, and thank-you ----------------------------------- */
+.formcard {
+  margin-top: 1rem; padding: clamp(1.75rem, 5vw, 2.5rem);
+  border: 1px solid var(--line); border-radius: 4px; background: var(--lilac-pale);
+}
+.formcard h2 { font-size: 1.6rem; margin-bottom: 0.6rem; }
+.formcard p { color: var(--ink-soft); font-size: 0.97rem; max-width: 56ch; }
+.formcard p:last-child { margin-bottom: 0; }
+
+.formcard--done { text-align: center; }
+.formcard--done p { margin-inline: auto; }
+.done__mark {
+  width: 54px; height: 54px; margin: 0 auto 1.1rem; border-radius: 50%;
+  background: var(--violet); color: #fff;
+  font-size: 1.6rem; line-height: 54px; text-align: center;
+}
+.done__actions {
+  display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;
+  margin-top: 1.75rem;
+}
+.done__actions .btn { font-family: inherit; cursor: pointer; }
+
+@media (max-width: 560px) {
+  .done__actions .btn { width: 100%; }
+}

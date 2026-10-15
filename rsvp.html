@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<script>document.documentElement.classList.remove("no-js");</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RSVP — Leo &amp; Yoonsun</title>
+<meta name="description" content="RSVP for Leo and Yoonsun's wedding, Thursday April 15, 2027 at Sweeney Barn.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#6b5494">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%AA%BB%3C/text%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="assets/css/styles.css?v=11">
+<link rel="stylesheet" href="assets/css/form.css?v=11">
+</head>
+<body class="rsvppage">
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="nav">
+  <div class="nav__inner">
+    <a class="nav__brand" href="index.html">L <span class="amp">&amp;</span> Y</a>
+    <nav class="nav__menu" aria-label="Main">
+      <a href="index.html">Back to the website</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="section section--white">
+  <div class="wrap wrap--narrow">
+
+    <p class="eyebrow">Thursday, April 15, 2027 &middot; Sweeney Barn</p>
+    <h1 class="section__title">RSVP</h1>
+    <p class="section__lede">
+      Kindly respond by <strong id="rsvpDeadline">February 15, 2027</strong>.
+      One form per invitation &mdash; if you are replying for two, the whole party
+      goes on this one.
+    </p>
+
+    <!-- Shown when the form is not wired up yet. -->
+    <div class="formcard" id="notReady" hidden>
+      <h2>Nearly ready</h2>
+      <p>
+        Our RSVP form is being set up and will be here shortly. If you would like
+        to reply right now, you can use
+        <a id="fallbackLink" href="index.html" target="_blank" rel="noopener noreferrer">this form</a>
+        instead, or simply email us at
+        <a id="fallbackEmail" href="mailto:kyuminleolee@gmail.com">kyuminleolee@gmail.com</a>.
+      </p>
+    </div>
+
+    <!-- Shown after a successful send. -->
+    <div class="formcard formcard--done" id="done" hidden>
+      <p class="done__mark" aria-hidden="true">&#10003;</p>
+      <h2 id="doneTitle">Thank you</h2>
+      <p id="doneBody">We have your reply, and we cannot wait to see you.</p>
+      <p class="done__actions">
+        <a class="btn btn--ghost" href="index.html">Back to the website</a>
+        <button class="btn btn--ghost" type="button" id="againBtn">Send another reply</button>
+      </p>
+    </div>
+
+    <form class="rsvpform" id="rsvpForm" novalidate hidden>
+
+      <div class="field">
+        <label class="field__label" for="f-name">Your full name <span class="req">*</span></label>
+        <p class="field__hint">If you are replying for two people, both names here.</p>
+        <input class="field__input" type="text" id="f-name" name="name" autocomplete="name" required>
+        <p class="field__error" id="e-name" hidden></p>
+      </div>
+
+      <div class="field">
+        <label class="field__label" for="f-email">Email address <span class="req">*</span></label>
+        <p class="field__hint">So we can reach you if anything changes.</p>
+        <input class="field__input" type="email" id="f-email" name="email" autocomplete="email" required>
+        <p class="field__error" id="e-email" hidden></p>
+      </div>
+
+      <fieldset class="field">
+        <legend class="field__label">Will you be joining us? <span class="req">*</span></legend>
+        <div class="choices" id="attendingChoices"></div>
+        <p class="field__error" id="e-attending" hidden></p>
+      </fieldset>
+
+      <!-- Everything below is only relevant to a yes. -->
+      <div id="ifAttending" hidden>
+        <div class="field">
+          <label class="field__label" for="f-party">How many people in your party? <span class="req">*</span></label>
+          <p class="field__hint">Including yourself, and only those named on your invitation.</p>
+          <input class="field__input field__input--short" type="number" id="f-party" name="party" min="1" max="12" step="1" inputmode="numeric">
+          <p class="field__error" id="e-party" hidden></p>
+        </div>
+
+        <fieldset class="field" id="mealField">
+          <legend class="field__label">Meal choice</legend>
+          <p class="field__hint">If your party would like different meals, tell us in the last box.</p>
+          <div class="choices" id="mealChoices"></div>
+        </fieldset>
+
+        <div class="field">
+          <label class="field__label" for="f-dietary">Any dietary restrictions or allergies?</label>
+          <input class="field__input" type="text" id="f-dietary" name="dietary">
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="f-song">A song that will get you dancing</label>
+          <input class="field__input" type="text" id="f-song" name="song">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field__label" for="f-note">Anything else we should know?</label>
+        <textarea class="field__input" id="f-note" name="note" rows="4"></textarea>
+      </div>
+
+      <p class="formerror" id="formError" role="alert" hidden></p>
+
+      <div class="formactions">
+        <button class="btn btn--solid" type="submit" id="submitBtn">Send our reply</button>
+        <p class="formactions__note">You can send again if you need to change something.</p>
+      </div>
+    </form>
+
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <p class="footer__names">Leo <span class="amp">&amp;</span> Yoonsun</p>
+    <p class="footer__date">April 15, 2027 &middot; Sweeney Barn &middot; Manassas, Virginia</p>
+  </div>
+</footer>
+
+<!-- The form posts into this hidden frame, so the page never navigates away
+     and the guest stays on our site the whole time. -->
+<iframe name="gformSink" id="gformSink" title="Form submission target" hidden></iframe>
+
+<script src="assets/js/config.js?v=11"></script>
+<script src="assets/js/rsvp.js?v=11"></script>
+</body>
+</html>

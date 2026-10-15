@@ -162,26 +162,21 @@
     var isGoogleForm = /^https:\/\/(docs\.google\.com\/forms\/|forms\.gle\/)/.test(url);
 
     if (isGoogleForm) {
-      // embedded=true strips the form's own header and footer, which is right
-      // inside an iframe and wrong in a tab of its own.
-      var openUrl = url
-        .replace(/[?&]embedded=true/, function (m) { return m.charAt(0) === "?" ? "?" : ""; })
-        .replace(/\?$/, "");
-
+      // Guests go to our own rsvp.html, which posts to this Google Form behind
+      // the scenes. The address above is still what identifies the form, and
+      // rsvp.html falls back to it if the entry ids are not filled in yet.
       var card = document.createElement("div");
       card.className = "rsvp__cta";
 
       var link = document.createElement("a");
       link.className = "btn btn--solid";
-      link.href = openUrl;
-      link.target = "_blank";
-      link.rel = "noopener noreferrer";
+      link.href = "rsvp.html";
       link.textContent = "Click to RSVP";
       card.appendChild(link);
 
       var hint = document.createElement("p");
       hint.className = "rsvp__hint";
-      hint.textContent = "Opens in a new tab. It takes about a minute.";
+      hint.textContent = "It takes about a minute.";
       card.appendChild(hint);
 
       mount.appendChild(card);
